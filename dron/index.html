@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Дрон Победы — обучение пилотированию и производство БПЛА в Москве</title>
+<meta name="description" content="АНО «Дрон Победы» — секции и лицензированные программы обучения пилотированию БПЛА для детей и взрослых. ООО «Дрон Победы» — полный цикл производства FPV-дронов и импортозамещение компонентов. Москва.">
+<meta name="theme-color" content="#f4f2ec">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Дрон Победы — учим летать, делаем дроны">
+<meta property="og:description" content="Образование и производство в одной экосистеме: от детских секций и мастер-классов до серийного выпуска FPV-дронов и импортозамещения электроники.">
+<meta property="og:image" content="assets/img/stand-banner.webp">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Дрон Победы","alternateName":"АНО и ООО «Дрон Победы»","description":"Обучение пилотированию БПЛА и производство дронов. Москва.","email":"dronpobedy@yandex.ru","telephone":"+7-915-264-98-35","address":{"@type":"PostalAddress","addressLocality":"Москва","addressCountry":"RU"},"slogan":"Время действовать — время побеждать","sameAs":["https://t.me/FPVpobeda","https://t.me/DronPobedy","https://vk.com/fpvpobeda","https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA"]}
+</script>
+<style>
+:root{
+  --bg:#f4f2ec; --fg:#0b0c10; --mut:#5a5f6b; --card:#ffffff;
+  --line:#e2dfd4; --line-2:#d3cfc1; --ac:#2540ff; --ac-2:#1a30d8; --onac:#fff;
+  --ink:#0b0c10; --ink-2:#14161f; --ink-line:#262a36; --ink-mut:#9ea3b2;
+  --signal:#ffe14a;
+  --r:999px; --R:28px; --R-lg:36px;
+  --pad:5vw; --max:1360px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--fg);
+  font:16px/1.55 Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--ac);color:#fff}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--mut);margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--ac);flex:none}
+h1,h2,h3{font-weight:800;letter-spacing:-.03em;line-height:1.02}
+h2{font-size:clamp(30px,4.2vw,60px);letter-spacing:-.035em}
+h3{font-size:clamp(19px,1.6vw,23px);letter-spacing:-.02em;line-height:1.2}
+em{font-style:normal;color:var(--ac)}
+.lead{color:var(--mut);font-size:clamp(16px,1.35vw,19px);max-width:62ch;margin-top:18px}
+
+/* ---------- BUTTONS ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ac);color:var(--onac);
+  padding:16px 28px;border-radius:var(--r);
+  font-weight:700;font-size:15px;letter-spacing:-.01em;
+  transition:background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);
+  will-change:transform;
+}
+.btn:hover{background:var(--ac-2);transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,64,255,.28)}
+.btn .ar{transition:transform .3s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line-2)}
+.btn.ghost:hover{background:#fff;border-color:var(--fg);box-shadow:none;transform:translateY(-2px)}
+.btn.light{background:#fff;color:var(--fg)}
+.btn.light:hover{background:#fff;box-shadow:0 12px 28px rgba(0,0,0,.25)}
+.btn.sm{padding:11px 20px;font-size:14px}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;
+  padding:14px var(--pad);
+  transition:background .3s var(--ease),box-shadow .3s var(--ease),padding .3s var(--ease);
+}
+.nav.scrolled{
+  background:rgba(244,242,236,.86);backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  box-shadow:0 1px 0 var(--line),0 8px 30px rgba(11,12,16,.05);
+  padding-top:10px;padding-bottom:10px;
+}
+.logo{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:16px}
+.logo img{width:auto;height:42px}
+.logo span small{display:block;font-size:10px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--mut);line-height:1.2;margin-top:1px}
+.nav-links{display:flex;gap:6px;align-items:center}
+.nav-links a{
+  font-size:14px;font-weight:600;color:var(--mut);padding:9px 13px;border-radius:var(--r);
+  transition:color .2s,background .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--fg);background:rgba(11,12,16,.05)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.burger{
+  display:none;width:44px;height:44px;border:1px solid var(--line-2);border-radius:50%;
+  align-items:center;justify-content:center;flex-direction:column;gap:5px;
+}
+.burger i{display:block;width:17px;height:2px;background:var(--fg);transition:transform .3s var(--ease),opacity .2s}
+body.menu-open .burger i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+body.menu-open .burger i:nth-child(2){opacity:0}
+body.menu-open .burger i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{
+  position:fixed;inset:0;z-index:55;background:var(--bg);
+  display:flex;flex-direction:column;justify-content:center;gap:6px;padding:88px var(--pad) 40px;
+  opacity:0;pointer-events:none;transition:opacity .3s var(--ease);
+}
+body.menu-open .mobile-menu{opacity:1;pointer-events:auto}
+.mobile-menu a{
+  font-size:clamp(26px,7vw,38px);font-weight:800;letter-spacing:-.03em;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.mobile-menu .mm-foot{margin-top:28px;color:var(--mut);font-size:14px}
+
+/* ---------- HERO ---------- */
+.hero{padding:112px 0 0}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(20px,3vw,48px);align-items:end}
+.hero h1{font-size:clamp(40px,6.05vw,86px);line-height:.96;letter-spacing:-.045em;font-weight:900}
+.hero h1 em{display:inline-block}
+.hero p{color:var(--mut);font-size:clamp(16px,1.4vw,19.5px);max-width:44ch;margin-top:22px}
+.hero .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+.hero-facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:34px;padding-top:20px;border-top:1px solid var(--line)}
+.hero-facts span{font-size:13.5px;color:var(--mut);font-weight:600}
+.hero-facts b{color:var(--fg);font-weight:800}
+.hero-media{position:relative;border-radius:var(--R-lg);overflow:hidden;background:#0b0c10;aspect-ratio:4/3.05;box-shadow:0 30px 70px -30px rgba(11,12,16,.45)}
+.hero-media video{width:100%;height:100%;object-fit:cover}
+.hero-media .chip{
+  position:absolute;left:16px;bottom:16px;display:flex;align-items:center;gap:10px;
+  background:var(--signal);color:var(--fg);padding:12px 18px;border-radius:var(--r);
+  font-weight:800;font-size:13px;line-height:1.25;letter-spacing:-.01em;
+}
+.hero-media .chip b{display:block}
+.hero-media .live{
+  position:absolute;right:16px;top:16px;display:flex;align-items:center;gap:8px;
+  background:rgba(11,12,16,.55);backdrop-filter:blur(8px);color:#fff;
+  padding:8px 14px;border-radius:var(--r);font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+}
+.hero-media .live i{width:7px;height:7px;border-radius:50%;background:#ff4d4d;animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ---------- TICKER ---------- */
+.ticker{margin-top:clamp(48px,6vw,80px);border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;background:#fff}
+.ticker-track{display:flex;gap:0;width:max-content;animation:mq 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track span{
+  display:flex;align-items:center;gap:26px;padding:16px 26px;white-space:nowrap;
+  font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);
+}
+.ticker-track span::after{content:"◆";color:var(--ac);font-size:9px;letter-spacing:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- STATS ---------- */
+.stats{padding:clamp(56px,7vw,90px) 0 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--R);
+  padding:clamp(20px,2.3vw,30px);display:flex;flex-direction:column;justify-content:space-between;
+  min-height:180px;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .3s;
+}
+.stat:hover{transform:translateY(-4px);box-shadow:0 20px 40px -22px rgba(11,12,16,.28);border-color:var(--line-2)}
+.stat b{font-size:clamp(38px,4.6vw,58px);line-height:.9;letter-spacing:-.045em;font-weight:900;color:var(--ac);display:block}
+.stat b .unit{font-size:.42em;letter-spacing:-.01em;font-weight:800;margin-left:4px}
+.stat p{font-size:13.5px;color:var(--mut);margin-top:16px;line-height:1.4}
+.stat.accent{background:var(--ac);border-color:var(--ac);color:#fff}
+.stat.accent b,.stat.accent p{color:#fff}
+.stat.accent p{color:rgba(255,255,255,.78)}
+
+/* ---------- SECTION ---------- */
+.sec{padding:clamp(70px,8vw,120px) 0 0}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.sec-head .lead{margin-top:18px}
+
+/* ---------- TWO DIRECTIONS ---------- */
+.dir-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:38px}
+.dir{
+  position:relative;border-radius:var(--R-lg);overflow:hidden;background:var(--card);
+  border:1px solid var(--line);display:flex;flex-direction:column;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease);
+}
+.dir:hover{transform:translateY(-5px);box-shadow:0 30px 60px -30px rgba(11,12,16,.4)}
+.dir-img{aspect-ratio:16/10;overflow:hidden}
+.dir-img img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;transition:transform .7s var(--ease)}
+.dir:hover .dir-img img{transform:scale(1.045)}
+.dir-body{padding:clamp(22px,2.4vw,32px);display:flex;flex-direction:column;gap:12px;flex:1}
+.dir-type{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ac)}
+.dir p{color:var(--mut);font-size:15px}
+.dir-link{margin-top:auto;padding-top:18px;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14.5px}
+.dir:hover .dir-link .ar{transform:translateX(4px)}
+.dir-link .ar{transition:transform .3s var(--ease)}
+
+/* ---------- EDU CARDS ---------- */
+.cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+.pcard{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--R);overflow:hidden;
+  display:flex;flex-direction:column;transition:transform .3s var(--ease),box-shadow .3s var(--ease);
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 24px 50px -28px rgba(11,12,16,.35)}
+.pcard .ph{aspect-ratio:4/3;overflow:hidden}
+.pcard .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;transition:transform .7s var(--ease)}
+.pcard:hover .ph img{transform:scale(1.05)}
+.pcard .pb{padding:24px 24px 26px}
+.pcard p{color:var(--mut);font-size:14.5px;margin-top:9px}
+.pcard .tagline{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ac);margin-bottom:10px}
+
+/* ---------- EDU PHOTOS ---------- */
+.edu-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.edu-shots figure{border-radius:var(--R);overflow:hidden;background:#ddd;aspect-ratio:4/3}
+.edu-shots img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.edu-shots figure:hover img{transform:scale(1.05)}
+
+/* ---------- VIDEO BLOCK ---------- */
+.vblock{
+  margin-top:14px;position:relative;border-radius:var(--R-lg);overflow:hidden;background:#0b0c10;
+  display:grid;grid-template-columns:1.55fr 1fr;
+}
+.vblock video{width:100%;height:100%;object-fit:cover;min-height:340px}
+.vblock-side{background:var(--ink);color:#f4f2ec;padding:clamp(26px,3vw,44px);display:flex;flex-direction:column;justify-content:center;gap:16px}
+.vblock-side h3{color:#fff;font-size:clamp(21px,2vw,28px)}
+.vblock-side p{color:var(--ink-mut);font-size:14.5px}
+.vblock-side ul{list-style:none;display:flex;flex-direction:column;gap:11px;margin-top:6px}
+.vblock-side li{display:flex;gap:11px;font-size:14.5px;color:#e7e8ee;line-height:1.4}
+.vblock-side li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--signal);flex:none;margin-top:8px}
+
+/* ---------- GALLERY ---------- */
+.gal{display:grid;grid-template-columns:repeat(12,1fr);gap:12px;margin-top:38px}
+.gal figure{position:relative;border-radius:var(--R);overflow:hidden;background:#ddd;cursor:zoom-in}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .4s}
+.gal figure:hover img{transform:scale(1.05)}
+.gal figcaption{
+  position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;
+  background:linear-gradient(transparent,rgba(11,12,16,.78));color:#fff;
+  font-size:12.5px;font-weight:600;opacity:0;transform:translateY(6px);
+  transition:opacity .3s,transform .3s;
+}
+.gal figure:hover figcaption{opacity:1;transform:none}
+.g1{grid-column:span 5;aspect-ratio:4/3}
+.g2{grid-column:span 4;aspect-ratio:4/3}
+.g3{grid-column:span 3;aspect-ratio:1/1}
+.g4{grid-column:span 3;aspect-ratio:1/1}
+.g5{grid-column:span 4;aspect-ratio:4/3}
+.g6{grid-column:span 5;aspect-ratio:4/3}
+
+/* ---------- DARK / PROD ---------- */
+.dark{background:var(--ink);color:#f4f2ec;margin-top:clamp(70px,8vw,120px);padding:clamp(60px,7vw,110px) 0}
+.dark h2{color:#fff}
+.dark .eyebrow{color:var(--ink-mut)}
+.dark .eyebrow::before{background:var(--signal)}
+.dark .lead{color:var(--ink-mut)}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,60px);margin-top:44px;align-items:start}
+.prod-list{list-style:none;display:flex;flex-direction:column;margin-top:6px}
+.prod-list li{
+  display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--ink-line);
+  font-size:15.5px;line-height:1.45;color:#e7e8ee;
+}
+.prod-list li:last-child{border-bottom:1px solid var(--ink-line)}
+.prod-list li span{font-size:12px;font-weight:800;color:var(--signal);letter-spacing:.06em;padding-top:3px;flex:none}
+.prod-note{
+  margin-top:22px;padding:20px 22px;border-radius:var(--R);background:var(--ink-2);
+  border:1px solid var(--ink-line);font-size:14px;color:var(--ink-mut);line-height:1.5;
+}
+.prod-note b{color:#fff;font-weight:700}
+.prod-imgs{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.prod-imgs img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--R)}
+.prod-imgs img:first-child{aspect-ratio:3/4;margin-top:44px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chips span{
+  border:1px solid var(--ink-line);color:#e7e8ee;padding:9px 15px;border-radius:var(--r);
+  font-size:13px;font-weight:600;
+}
+.ramp{margin-top:28px;border:1px solid var(--ink-line);border-radius:var(--R);padding:22px;background:var(--ink-2)}
+.ramp-top{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-mut);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+.ramp-bar{height:10px;border-radius:99px;background:#1d2130;overflow:hidden;display:flex}
+.ramp-bar i{display:block;height:100%;background:var(--signal);width:20%}
+.ramp-bar b{display:block;height:100%;background:rgba(255,225,74,.24);width:80%}
+.ramp-legend{display:flex;justify-content:space-between;margin-top:14px;font-size:14.5px}
+.ramp-legend span{color:var(--ink-mut)}
+.ramp-legend b{color:#fff}
+
+/* ---------- PARTNERS ---------- */
+.partners{margin-top:clamp(50px,6vw,84px);border-top:1px solid var(--ink-line);padding-top:28px}
+.partners p{font-size:11.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mut);margin-bottom:18px}
+.partners ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px}
+.partners li{
+  border:1px solid var(--ink-line);border-radius:var(--r);padding:11px 18px;
+  font-size:13.5px;font-weight:600;color:#e7e8ee;
+}
+
+/* ---------- PLANS ---------- */
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
+.plan{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--R);
+  padding:26px;display:flex;flex-direction:column;gap:10px;min-height:230px;
+  transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s,color .3s;
+}
+.plan:hover{transform:translateY(-4px);box-shadow:0 24px 50px -28px rgba(11,12,16,.35)}
+.plan .n{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--ac)}
+.plan p{color:var(--mut);font-size:14px;line-height:1.45;margin-top:auto}
+.plan.hl{background:var(--ac);border-color:var(--ac);color:#fff}
+.plan.hl .n,.plan.hl p{color:rgba(255,255,255,.8)}
+.plan.hl .n{color:#fff}
+
+/* ---------- FAQ ---------- */
+.faq{margin-top:34px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 0;cursor:pointer;list-style:none;font-weight:700;font-size:clamp(16px,1.5vw,19px);letter-spacing:-.015em;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line-2);
+  display:grid;place-items:center;font-weight:600;font-size:19px;color:var(--mut);
+  transition:transform .3s var(--ease),background .2s,color .2s;
+}
+.faq details[open] summary::after{content:"–";background:var(--ac);border-color:var(--ac);color:#fff}
+.faq .a{padding:0 0 24px;color:var(--mut);max-width:78ch;font-size:15px}
+
+.edu-contacts{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(20px,3vw,40px);align-items:center;
+  margin-top:clamp(22px,3vw,34px);padding:clamp(22px,3vw,32px);border-radius:var(--R);
+  background:var(--ink);color:#f4f2ec;
+}
+.edu-contacts h3{font-size:clamp(19px,2.2vw,26px);letter-spacing:-.02em}
+.edu-contacts p{margin-top:10px;color:var(--ink-mut);font-size:14.5px;line-height:1.5}
+.edu-contacts .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.edu-contacts .btn.ghost{color:#f4f2ec;border-color:var(--ink-line)}
+.edu-contacts .btn.ghost:hover{background:var(--ink-2);border-color:#f4f2ec;color:#fff}
+.edu-contacts ul{list-style:none;display:flex;flex-direction:column;gap:12px;font-size:14.5px}
+.edu-contacts li{display:flex;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid var(--ink-line)}
+.edu-contacts li:last-child{border-bottom:0;padding-bottom:0}
+.edu-contacts li span{color:var(--ink-mut)}
+.edu-contacts li a,.edu-contacts li b{font-weight:700;text-align:right;color:#fff}
+.edu-contacts li a{border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px;transition:border-color .2s,opacity .2s}
+.edu-contacts li a:hover{border-color:#fff;opacity:.85}
+.edu-license{margin-top:16px;font-size:12.5px;line-height:1.45;color:var(--ink-mut)}
+.edu-license b{color:#f4f2ec;font-weight:700}
+@media (max-width:900px){.edu-contacts{grid-template-columns:1fr}}
+
+/* ---------- CTA ---------- */
+.cta{
+  margin:clamp(70px,8vw,120px) 0 0;border-radius:var(--R-lg);
+  background:var(--ac);color:#fff;padding:clamp(40px,5vw,72px);
+  display:grid;grid-template-columns:1.35fr .65fr;gap:clamp(24px,4vw,56px);align-items:center;
+  position:relative;overflow:hidden;
+}
+.cta::after{
+  content:"";position:absolute;right:-140px;top:-160px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 65%);pointer-events:none;
+}
+.cta h2{color:#fff;font-size:clamp(28px,3.9vw,54px)}
+.cta p{margin-top:16px;color:rgba(255,255,255,.82);max-width:48ch;font-size:16px}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.cta-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:var(--R);padding:24px;backdrop-filter:blur(4px)}
+.cta-card h4{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.7);margin-bottom:14px;font-weight:800}
+.cta-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;font-size:14.5px}
+.cta-card li{display:flex;justify-content:space-between;gap:14px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.16)}
+.cta-card li:last-child{border-bottom:0;padding-bottom:0}
+.cta-card li span{color:rgba(255,255,255,.65)}
+.c-links a{font-weight:700;text-align:right;border-bottom:1px solid rgba(255,255,255,.35);padding-bottom:1px;transition:border-color .2s,opacity .2s}
+.c-links a:hover{border-color:#fff;opacity:.85}
+.c-note{margin-top:16px;font-size:12.5px;line-height:1.45;color:rgba(255,255,255,.62)}
+.cta-card li b{font-weight:700;text-align:right}
+
+/* ---------- FOOTER ---------- */
+footer{margin-top:clamp(50px,6vw,80px);border-top:1px solid var(--line);padding:clamp(34px,4vw,52px) 0 40px}
+.f-grid{display:grid;grid-template-columns:1.4fr .7fr .7fr .9fr;gap:30px}
+.f-brand{display:flex;flex-direction:column;gap:14px;max-width:34ch}
+.f-brand .logo{font-size:17px}
+.f-brand p{color:var(--mut);font-size:13.5px;line-height:1.5}
+.f-col h5{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;font-weight:800}
+.f-col a,.f-col p{display:block;font-size:14px;color:var(--fg);margin-bottom:9px;transition:color .2s}
+.f-col a:hover{color:var(--ac)}
+.f-col .todo{color:var(--mut)}
+.f-col .todo b{color:var(--fg);font-weight:600}
+.f-license{margin-top:30px;padding-top:20px;border-top:1px solid var(--line);color:var(--mut);font-size:12.5px;line-height:1.45}
+.f-bottom{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:14px;padding-top:18px;border-top:1px solid var(--line);color:var(--mut);font-size:13px}
+
+/* ---------- REVEAL ---------- */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- LIGHTBOX ---------- */
+.lb{
+  position:fixed;inset:0;z-index:100;background:rgba(11,12,16,.94);
+  display:none;align-items:center;justify-content:center;padding:4vw;
+}
+.lb.open{display:flex}
+.lb img{max-width:100%;max-height:86vh;border-radius:14px;object-fit:contain}
+.lb-close{position:absolute;top:22px;right:26px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:22px;display:grid;place-items:center}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:20px;display:grid;place-items:center}
+.lb-prev{left:2vw}.lb-next{right:2vw}
+.lb-cap{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:rgba(255,255,255,.8);font-size:13.5px}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1100px){
+  .hero-grid{grid-template-columns:1fr;align-items:start}
+  .hero-media{aspect-ratio:16/9;margin-top:6px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .plans{grid-template-columns:1fr 1fr}
+  .vblock{grid-template-columns:1fr}
+  .cta{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .prod-grid{grid-template-columns:1fr}
+  .prod-imgs img:first-child{margin-top:0}
+}
+@media(max-width:900px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .dir-grid,.cards-3{grid-template-columns:1fr}
+  .gal{grid-template-columns:repeat(6,1fr)}
+  .g1,.g6{grid-column:span 6;aspect-ratio:16/10}
+  .g2,.g5{grid-column:span 6;aspect-ratio:16/10}
+  .g3,.g4{grid-column:span 3;aspect-ratio:3/4}
+}
+@media(max-width:600px){
+  :root{--R:22px;--R-lg:26px;--pad:18px}
+  .edu-shots{grid-template-columns:1fr;gap:10px}
+  .nav{gap:8px;padding-left:14px;padding-right:14px}
+  .logo{gap:8px;font-size:13.5px;white-space:nowrap}
+  .logo img{height:34px}
+  .logo span small{font-size:9px;letter-spacing:.1em}
+  .nav-right{gap:8px}
+  .nav .btn.sm{padding:9px 14px;font-size:12.5px}
+  .nav .btn.sm .ar{display:none}
+  .burger{width:38px;height:38px;flex:none}
+  html{scroll-padding-top:70px}
+  .hero{padding-top:96px}
+  .hero h1{font-size:clamp(38px,11.5vw,56px)}
+  .hero .row{flex-direction:column;align-items:stretch}
+  .hero .row .btn{justify-content:center}
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px}
+  .stat{min-height:150px;padding:18px}
+  .stat b{font-size:34px}
+  .plans{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr;gap:24px}
+  .cta{padding:28px 22px}
+  .vblock-side{padding:22px}
+  .ticker-track span{font-size:11px;padding:13px 18px}
+  .gal{grid-template-columns:1fr;gap:10px}
+  .g1,.g2,.g3,.g4,.g5,.g6{grid-column:span 1;aspect-ratio:4/3}
+  .prod-imgs{grid-template-columns:1fr}
+  .prod-imgs img{aspect-ratio:4/3}
+  .ramp-legend{flex-direction:column;gap:6px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Дрон Победы — на главную">
+    <img src="assets/logo.png" alt="Логотип «Дрон Победы»" width="418" height="312">
+    <span>Дрон Победы<small>Москва</small></span>
+  </a>
+  <nav class="nav-links" aria-label="Основная навигация">
+    <a href="#about">О проекте</a>
+    <a href="#edu">Обучение</a>
+    <a href="#prod">Производство</a>
+    <a href="#events">События</a>
+    <a href="#plans">Планы</a>
+  </nav>
+  <div class="nav-right">
+    <a class="btn sm" href="#contact">Связаться <span class="ar">→</span></a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false" aria-controls="mobile-menu">
+      <i></i><i></i><i></i>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about">О проекте</a>
+  <a href="#edu">Обучение и секции</a>
+  <a href="#prod">Производство</a>
+  <a href="#events">События</a>
+  <a href="#plans">Планы</a>
+  <a href="#contact">Связаться</a>
+  <div class="mm-foot">Москва · АНО и ООО «Дрон Победы»<br>Время действовать — время побеждать</div>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">Москва · образование · производство</span>
+        <h1>Учим летать.<br><em>Делаем дроны.</em></h1>
+        <p>Формируем культуру пилотирования среди гражданского населения и создаём производственный кластер для нужд обороны и гражданской экономики России.</p>
+        <div class="row">
+          <a class="btn" href="#edu">Обучение и секции <span class="ar">→</span></a>
+          <a class="btn ghost" href="#prod">Производство и продукция</a>
+        </div>
+        <div class="hero-facts">
+          <span><b>АНО</b> — просвещение и кадры</span>
+          <span><b>ООО</b> — технологии и выпуск</span>
+          <span><b>1 экосистема</b> — от секции до серии</span>
+        </div>
+      </div>
+      <div class="hero-media">
+        <video src="assets/video/hero-loop.mp4" poster="assets/video/hero-poster.webp"
+               autoplay muted loop playsinline preload="metadata" aria-label="Занятие по пилотированию дронов в школе"></video>
+        <span class="live"><i></i>На занятиях</span>
+        <div class="chip"><span>Время действовать<br><b>Время побеждать</b></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>Обучение</span><span>Производство</span><span>Импортозамещение</span><span>FPV-дроны</span><span>Детские секции</span><span>Мастер-классы</span><span>Лето в Москве</span><span>Кадровый резерв</span>
+      <span>Обучение</span><span>Производство</span><span>Импортозамещение</span><span>FPV-дроны</span><span>Детские секции</span><span>Мастер-классы</span><span>Лето в Москве</span><span>Кадровый резерв</span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats wrap">
+    <div class="stats-grid">
+      <div class="stat accent">
+        <b><span class="count" data-to="1000">1000</span></b>
+        <p>дронов в месяц — стартовый плановый объём выпуска</p>
+      </div>
+      <div class="stat">
+        <b><span class="count" data-to="5000">5000</span></b>
+        <p>дронов в месяц — потенциал роста за 3–4 месяца</p>
+      </div>
+      <div class="stat">
+        <b><span class="count" data-to="144">144</span><span class="unit">ч</span></b>
+        <p>максимальная программа обучения для взрослых</p>
+      </div>
+      <div class="stat">
+        <b><span class="count" data-to="3">3</span></b>
+        <p>мастер-класса в неделю в программе «Лето в Москве»</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="sec wrap" id="about">
+    <div class="sec-head rv">
+      <div>
+        <span class="eyebrow">01 — О проекте</span>
+        <h2>Два направления — <em>одна миссия</em></h2>
+        <p class="lead">Вместе они образуют замкнутую экосистему: от обучения юных пилотов до серийного производства дронов.</p>
+      </div>
+    </div>
+    <div class="dir-grid">
+      <article class="dir rv">
+        <div class="dir-img"><img src="assets/img/edu-vr.webp" srcset="assets/img/edu-vr-sm.webp 820w, assets/img/edu-vr.webp 1280w" sizes="(max-width:900px) 100vw, 45vw" alt="Дети осваивают пилотирование с VR-очками на занятии" loading="lazy"></div>
+        <div class="dir-body">
+          <span class="dir-type">АНО · просвещение</span>
+          <h3>Готовим кадры для отрасли</h3>
+          <p>Популяризируем беспилотную авиацию и формируем кадровый резерв — от детских секций до лицензированных программ для взрослых.</p>
+          <a class="dir-link" href="#edu">Обучение и секции <span class="ar">→</span></a>
+        </div>
+      </article>
+      <article class="dir rv">
+        <div class="dir-img"><img src="assets/img/field-training.webp" srcset="assets/img/field-training-sm.webp 820w, assets/img/field-training.webp 1280w" sizes="(max-width:900px) 100vw, 45vw" alt="Полевые занятия: операторы работают с FPV-дроном за ноутбуками" loading="lazy"></div>
+        <div class="dir-body">
+          <span class="dir-type">ООО · технологии</span>
+          <h3>Производим дроны и компоненты</h3>
+          <p>Технологический суверенитет и полный цикл производства с акцентом на импортозамещение электроники и комплектующих.</p>
+          <a class="dir-link" href="#prod">Производство и продукция <span class="ar">→</span></a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- EDU -->
+  <section class="sec wrap" id="edu">
+    <div class="sec-head rv">
+      <div>
+        <span class="eyebrow">02 — Обучение</span>
+        <h2>Обучение <em>и секции</em></h2>
+        <p class="lead">Программы охватывают все возрастные группы — от детей до взрослых специалистов, включая подготовку инструкторов.</p>
+      </div>
+      <a class="btn ghost sm" href="#contact">Записаться <span class="ar">→</span></a>
+    </div>
+
+    <div class="cards-3">
+      <article class="pcard rv">
+        <div class="ph"><img src="assets/img/summer-moscow.webp" srcset="assets/img/summer-moscow-sm.webp 820w, assets/img/summer-moscow.webp 1280w" sizes="(max-width:900px) 100vw, 32vw" alt="Дети и взрослые на мастер-классе под открытым павильоном" loading="lazy"></div>
+        <div class="pb">
+          <span class="tagline">Дети и молодёжь</span>
+          <h3>Работа с молодёжью</h3>
+          <p>Детские секции на базе спортивных центров и образовательных учреждений: первые полёты, симулятор, сборка и настройка.</p>
+        </div>
+      </article>
+      <article class="pcard rv">
+        <div class="ph"><img src="assets/img/stand-banner.webp" srcset="assets/img/stand-banner-sm.webp 820w" sizes="32vw" alt="Стенд «Дрон Победы» на городской площадке" loading="lazy"></div>
+        <div class="pb">
+          <span class="tagline">Городские программы</span>
+          <h3>Городская интеграция</h3>
+          <p>Участие в городских программах, например «Лето в Москве»: три мастер-класса в неделю для жителей города — бесплатно и без подготовки.</p>
+        </div>
+      </article>
+      <article class="pcard rv">
+        <div class="ph"><img src="assets/img/edu-cadets.webp" srcset="assets/img/edu-cadets-sm.webp 820w, assets/img/edu-cadets.webp 1280w" sizes="(max-width:900px) 100vw, 32vw" alt="Курсанты отрабатывают управление дроном на тренажёре" loading="lazy"></div>
+        <div class="pb">
+          <span class="tagline">Взрослые · 32–144 ч</span>
+          <h3>Профессиональное обучение</h3>
+          <p>Лицензированные программы для взрослых от 32 до 144 часов, включая курс подготовки инструкторов и работу на реальных аппаратах.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="edu-shots rv">
+      <figure><img src="assets/img/edu-class01.webp" srcset="assets/img/edu-class01-sm.webp 820w, assets/img/edu-class01.webp 1280w" sizes="(max-width:600px) 100vw, 32vw" alt="Наставник показывает курсанту пульт управления на занятии в классе" loading="lazy"></figure>
+      <figure><img src="assets/img/edu-class02.webp" srcset="assets/img/edu-class02-sm.webp 820w, assets/img/edu-class02.webp 1280w" sizes="(max-width:600px) 100vw, 32vw" alt="Инструктор объясняет устройство квадрокоптера, на экране слайд «Из чего состоит дрон?»" loading="lazy"></figure>
+      <figure><img src="assets/img/edu-class03.webp" srcset="assets/img/edu-class03-sm.webp 820w, assets/img/edu-class03.webp 1280w" sizes="(max-width:600px) 100vw, 32vw" alt="Инструктор с учебным квадрокоптером в защите винтов, курсант работает на симуляторе" loading="lazy"></figure>
+    </div>
+
+    <!-- VIDEO -->
+    <div class="vblock rv">
+      <video src="assets/video/edu-loop.mp4" poster="assets/video/edu-poster.webp"
+             autoplay muted loop playsinline preload="none" aria-label="Как проходит занятие в секции"></video>
+      <div class="vblock-side">
+        <span class="eyebrow" style="color:#9ea3b2;margin-bottom:0">Как проходит занятие</span>
+        <h3>От симулятора — до первого полёта в сетке</h3>
+        <p>Занятие в секции: теория и настройка аппарата, отработка на симуляторе, затем полёты в защищённой зоне под контролем инструктора.</p>
+        <ul>
+          <li>Группы по возрасту и уровню подготовки</li>
+          <li>Симулятор, учебные и гоночные FPV-аппараты</li>
+          <li>Защитная сетка и инструктор на каждом полёте</li>
+          <li>Курс подготовки инструкторов — для тех, кто пойдёт дальше</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ЗАПИСЬ В СЕКЦИИ -->
+    <div class="edu-contacts rv">
+      <div>
+        <h3>Записаться в секцию или на курс</h3>
+        <p>Позвоните или напишите — подскажем расписание, возрастные группы и свободные места в ближайшей секции.</p>
+        <div class="row">
+          <a class="btn light" href="tel:+79152649835">+7 (915) 264-98-35</a>
+          <a class="btn ghost" href="https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA" target="_blank" rel="noopener">Написать в MAX <span class="ar">→</span></a>
+        </div>
+      </div>
+      <div>
+        <ul>
+          <li><span>Телефон</span><a href="tel:+79152649835">+7 (915) 264-98-35</a></li>
+          <li><span>E-mail</span><a href="mailto:dronpobedy@yandex.ru">dronpobedy@yandex.ru</a></li>
+          <li><span>MAX</span><a href="https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA" target="_blank" rel="noopener">Канал «Дрон Победы»</a></li>
+          <li><span>Telegram</span><a href="https://t.me/DronPobedy" target="_blank" rel="noopener">@DronPobedy</a></li>
+          <li><span>Канал</span><a href="https://t.me/FPVpobeda" target="_blank" rel="noopener">@FPVpobeda</a></li>
+        </ul>
+        <p class="edu-license">Образовательная деятельность ведётся на основании лицензии <b>№ Л035-01298-77/03697194</b>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EVENTS -->
+  <section class="sec wrap" id="events">
+    <div class="sec-head rv">
+      <div>
+        <span class="eyebrow">03 — События</span>
+        <h2>Где нас <em>можно увидеть</em></h2>
+        <p class="lead">Секции, городские площадки, университеты и выставки — реальные кадры с занятий и мероприятий проекта.</p>
+      </div>
+    </div>
+    <div class="gal" id="gal">
+      <figure class="g1 rv"><img src="assets/img/event-fpv.webp" srcset="assets/img/event-fpv-sm.webp 820w, assets/img/event-fpv.webp 1280w" sizes="(max-width:900px) 100vw, 40vw" alt="Презентация FPV-дронов гостям мероприятия" loading="lazy"><figcaption>Презентация аппаратов гостям</figcaption></figure>
+      <figure class="g2 rv"><img src="assets/img/drone-arena.webp" srcset="assets/img/drone-arena-sm.webp 820w, assets/img/drone-arena.webp 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Полётная зона, защищённая сеткой, и пилот с пультом" loading="lazy"><figcaption>Полётная зона в помещении</figcaption></figure>
+      <figure class="g3 rv"><img src="assets/img/award-ceremony.webp" srcset="assets/img/award-ceremony-sm.webp 820w" sizes="25vw" alt="Награждение: вручение грамоты" loading="lazy"><figcaption>Награждение проекта</figcaption></figure>
+      <figure class="g4 rv"><img src="assets/img/rudn-partner.webp" srcset="assets/img/rudn-partner-sm.webp 820w" sizes="25vw" alt="Мероприятие в РУДН: дроны на столе, участники за ноутбуками" loading="lazy"><figcaption>Университетская площадка</figcaption></figure>
+      <figure class="g5 rv"><img src="assets/img/award-group.webp" srcset="assets/img/award-group-sm.webp 820w, assets/img/award-group.webp 1280w" sizes="(max-width:900px) 100vw, 33vw" alt="Групповое фото участников церемонии в колонном зале" loading="lazy"><figcaption>Церемония: команда и партнёры</figcaption></figure>
+      <figure class="g6 rv"><img src="assets/img/merch-brand.webp" srcset="assets/img/merch-brand-sm.webp 820w, assets/img/merch-brand.webp 1280w" sizes="(max-width:900px) 100vw, 40vw" alt="Участники в футболках «Время действовать — время побеждать»" loading="lazy"><figcaption>Бренд проекта</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- PROD (DARK) -->
+  <section class="dark" id="prod">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <span class="eyebrow">04 — Производство</span>
+          <h2>Производство <em style="color:var(--signal)">и продукция</em></h2>
+          <p class="lead">Стратегическая цель — обеспечение потребностей СВО и последующий выход на гражданский рынок.</p>
+        </div>
+      </div>
+      <div class="prod-grid">
+        <div class="rv">
+          <ul class="prod-list">
+            <li><span>01</span>Полный цикл производства критически важных компонентов</li>
+            <li><span>02</span>Акцент на импортозамещении электроники и комплектующих</li>
+            <li><span>03</span>Выпуск FPV-дронов и компонентов</li>
+            <li><span>04</span>Производственная база — подготовленное помещение с защитой ПВО</li>
+          </ul>
+          <div class="chips">
+            <span>FPV-дроны</span><span>Карбоновые рамы</span><span>FPV-камеры</span><span>Двигатели</span><span>Электроника</span>
+          </div>
+          <div class="ramp">
+            <div class="ramp-top"><span>План выпуска</span><span>3–4 месяца</span></div>
+            <div class="ramp-bar"><i></i><b></b></div>
+            <div class="ramp-legend">
+              <span>Старт · <b>1000 дронов/мес</b></span>
+              <span>Потенциал · <b>5000 дронов/мес</b></span>
+            </div>
+          </div>
+          <div class="prod-note">
+            <b>Резидент АНО «Центр беспилотных систем и технологий»</b> — экспертная и административная поддержка на всех уровнях и конкурентное преимущество для производственного направления.
+          </div>
+        </div>
+        <div class="prod-imgs rv">
+          <img src="assets/img/field-training-2.webp" srcset="assets/img/field-training-2-sm.webp 820w" sizes="(max-width:1100px) 45vw, 22vw" alt="Подготовка FPV-дрона к вылету на полевой площадке" loading="lazy">
+          <img src="assets/img/instructors.webp" srcset="assets/img/instructors-sm.webp 820w" sizes="(max-width:1100px) 45vw, 22vw" alt="Инструкторы и операторы у ноутбуков с телеметрией" loading="lazy">
+        </div>
+      </div>
+
+      <div class="partners rv">
+        <p>Поддержка и площадки</p>
+        <ul>
+          <li>АНО «Центр беспилотных систем и технологий»</li>
+          <li>РУДН им. Патриса Лумумбы</li>
+          <li>«Лето в Москве»</li>
+          <li>Спортивные центры и образовательные учреждения</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANS -->
+  <section class="sec wrap" id="plans">
+    <div class="sec-head rv">
+      <div>
+        <span class="eyebrow">05 — Развитие</span>
+        <h2>Планы развития <em>и масштабирования</em></h2>
+      </div>
+    </div>
+    <div class="plans">
+      <article class="plan rv"><span class="n">01</span><h3>Локализация</h3><p>Импортозамещение карбоновых рам, FPV-камер и двигателей — меньше зависимости от внешних поставок.</p></article>
+      <article class="plan rv"><span class="n">02</span><h3>Рост мощностей</h3><p>Расширение производственных мощностей и выпуска — выход на серийные объёмы.</p></article>
+      <article class="plan rv"><span class="n">03</span><h3>Кадровый резерв</h3><p>Подготовка технологических специалистов в сфере БПЛА — от инструкторов до сборщиков.</p></article>
+      <article class="plan hl rv"><span class="n">04</span><h3>Регионы</h3><p>Федеральная структура с сетью региональных представительств.</p></article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec wrap" id="faq">
+    <div class="sec-head rv">
+      <div>
+        <span class="eyebrow">06 — Вопросы</span>
+        <h2>Коротко <em>о главном</em></h2>
+      </div>
+    </div>
+    <div class="faq rv">
+      <details open>
+        <summary>Что такое «Дрон Победы»?</summary>
+        <div class="a">Проект на стыке образовательных инициатив и высокотехнологичного производства. АНО занимается просвещением и подготовкой кадров, ООО — технологиями, производством дронов и импортозамещением. Вместе они образуют замкнутую экосистему: от обучения юных пилотов до серийного выпуска аппаратов.</div>
+      </details>
+      <details>
+        <summary>С какого возраста можно заниматься?</summary>
+        <div class="a">Программы охватывают все возрастные группы. Для детей — секции на базе спортивных центров и образовательных учреждений, для взрослых — лицензированные программы от 32 до 144 часов, включая курс подготовки инструкторов.</div>
+      </details>
+      <details>
+        <summary>Нужен ли свой дрон и подготовка?</summary>
+        <div class="a">Нет. На занятиях используются учебные и гоночные аппараты проекта, симулятор и защищённая полётная зона. Начать можно с нуля — под руководством инструктора.</div>
+      </details>
+      <details>
+        <summary>Где проходят занятия?</summary>
+        <div class="a">На базе спортивных центров, образовательных учреждений и городских площадок — в том числе в рамках программы «Лето в Москве», где мы проводим три мастер-класса в неделю для жителей города.</div>
+      </details>
+      <details>
+        <summary>Можно ли заказать дроны или компоненты?</summary>
+        <div class="a">Да, ООО «Дрон Победы» выпускает FPV-дроны и компоненты, ведёт работу по импортозамещению электроники, карбоновых рам, камер и двигателей. Условия, объёмы и сроки обсуждаются индивидуально.</div>
+      </details>
+      <details>
+        <summary>Как стать партнёром или открыть представительство в регионе?</summary>
+        <div class="a">В планах развития — федеральная структура с сетью региональных представительств. Напишите нам, чтобы обсудить партнёрство, площадку для секции или сотрудничество по производству.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="wrap" id="contact">
+    <div class="cta rv">
+      <div>
+        <h2>Построим экосистему беспилотных технологий <em style="color:#ffe14a">вместе</em></h2>
+        <p>Обучение, производство, партнёрство и региональное развитие. «Дрон Победы» открыт к сотрудничеству.</p>
+        <div class="row">
+          <a class="btn light" href="https://t.me/DronPobedy" target="_blank" rel="noopener">Написать в Telegram <span class="ar">→</span></a>
+          <a class="btn ghost" style="border-color:rgba(255,255,255,.4);color:#fff" href="https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA" target="_blank" rel="noopener">Написать в MAX</a>
+          <a class="btn ghost" style="border-color:rgba(255,255,255,.4);color:#fff" href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">Мы во ВКонтакте</a>
+        </div>
+      </div>
+      <div class="cta-card">
+        <h4>Написать нам</h4>
+        <ul class="c-links">
+          <li><span>Телефон</span><a href="tel:+79152649835">+7 (915) 264-98-35</a></li>
+          <li><span>E-mail</span><a href="mailto:dronpobedy@yandex.ru">dronpobedy@yandex.ru</a></li>
+          <li><span>Telegram</span><a href="https://t.me/DronPobedy" target="_blank" rel="noopener">@DronPobedy</a></li>
+          <li><span>Канал</span><a href="https://t.me/FPVpobeda" target="_blank" rel="noopener">@FPVpobeda</a></li>
+          <li><span>MAX</span><a href="https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA" target="_blank" rel="noopener">Канал «Дрон Победы»</a></li>
+          <li><span>ВКонтакте</span><a href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">/fpvpobeda</a></li>
+          <li><span>Город</span><b>Москва</b></li>
+        </ul>
+        <p class="c-note">Отвечаем в Telegram: обучение и секции, производство, партнёрство и представительства в регионах.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="logo" href="#top"><img src="assets/logo.png" alt="Логотип «Дрон Победы»" width="418" height="312"><span>Дрон Победы<small>Москва</small></span></a>
+        <p>Образование и производство в одной экосистеме: секции, мастер-классы, лицензированные программы и выпуск FPV-дронов.</p>
+      </div>
+      <div class="f-col">
+        <h5>Разделы</h5>
+        <a href="#about">О проекте</a>
+        <a href="#edu">Обучение и секции</a>
+        <a href="#prod">Производство</a>
+        <a href="#events">События</a>
+      </div>
+      <div class="f-col">
+        <h5>Ещё</h5>
+        <a href="#plans">Планы развития</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#contact">Связаться</a>
+      </div>
+      <div class="f-col">
+        <h5>Контакты</h5>
+        <a href="tel:+79152649835">+7 (915) 264-98-35</a>
+        <a href="mailto:dronpobedy@yandex.ru">dronpobedy@yandex.ru</a>
+        <a href="https://t.me/DronPobedy" target="_blank" rel="noopener">Telegram — @DronPobedy</a>
+        <a href="https://t.me/FPVpobeda" target="_blank" rel="noopener">Канал — @FPVpobeda</a>
+        <a href="https://web.max.ru/join/pDPaGGTPb0Sj3_4zJCLuktEPuESuoU-USgeWUVdudYA" target="_blank" rel="noopener">MAX — «Дрон Победы»</a>
+        <a href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">ВКонтакте</a>
+        <p>Москва</p>
+      </div>
+    </div>
+    <div class="f-license">Лицензия на осуществление образовательной деятельности № Л035-01298-77/03697194</div>
+    <div class="f-bottom">
+      <span>© <span id="yr">2026</span> АНО и ООО «Дрон Победы» · Москва</span>
+      <span>Время действовать — время побеждать</span>
+    </div>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Просмотр фотографии">
+  <button class="lb-close" id="lbClose" aria-label="Закрыть">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Предыдущая">‹</button>
+  <img id="lbImg" alt="Просмотр фотографии">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Следующая">›</button>
+  <div class="lb-cap" id="lbCap"></div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var body = document.body;
+
+  // nav scrolled
+  var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 24); };
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  // burger
+  burger.addEventListener('click', function(){
+    var open = body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    body.style.overflow = open ? 'hidden' : '';
+  });
+  document.querySelectorAll('#mobile-menu a').forEach(function(a){
+    a.addEventListener('click', function(){
+      body.classList.remove('menu-open'); burger.setAttribute('aria-expanded','false'); body.style.overflow='';
+    });
+  });
+
+  // year
+  var yr = document.getElementById('yr'); if (yr) yr.textContent = new Date().getFullYear();
+
+  // reveal
+  var rvs = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+    rvs.forEach(function(el){ io.observe(el); });
+  } else { rvs.forEach(function(el){ el.classList.add('in'); }); }
+
+  // counters
+  var counted = false;
+  var runCounters = function(){
+    if (counted) return; counted = true;
+    document.querySelectorAll('.count').forEach(function(el){
+      var to = parseFloat(el.getAttribute('data-to')) || 0;
+      var dur = 1400, t0 = null;
+      var step = function(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / dur, 1);
+        var e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(to * e).toLocaleString('ru-RU');
+        if (p < 1) requestAnimationFrame(step); else el.textContent = to.toLocaleString('ru-RU');
+      };
+      requestAnimationFrame(step);
+    });
+  };
+  var statsEl = document.querySelector('.stats');
+  if (statsEl && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(en, ob){
+      if (en[0].isIntersecting){ runCounters(); ob.disconnect(); }
+    }, {threshold:.35}).observe(statsEl);
+  } else { runCounters(); }
+
+  // active nav link
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && secs.length){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          links.forEach(function(l){ l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id); });
+        }
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    secs.forEach(function(s){ spy.observe(s); });
+    window.addEventListener('scroll', function(){
+      if (window.scrollY < 260) links.forEach(function(l){ l.classList.remove('active'); });
+    }, {passive:true});
+  }
+
+  // lightbox
+  var figs = Array.prototype.slice.call(document.querySelectorAll('#gal figure'));
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbCap = document.getElementById('lbCap');
+  var idx = 0;
+  var show = function(i){
+    idx = (i + figs.length) % figs.length;
+    var img = figs[idx].querySelector('img');
+    lbImg.src = img.getAttribute('src') || img.src;
+    lbImg.alt = img.alt || '';
+    lbCap.textContent = (figs[idx].querySelector('figcaption') || {}).textContent || '';
+  };
+  if (lb && figs.length){
+    figs.forEach(function(f, i){
+      f.addEventListener('click', function(){ show(i); lb.classList.add('open'); body.style.overflow = 'hidden'; });
+    });
+    document.getElementById('lbClose').addEventListener('click', function(){ lb.classList.remove('open'); body.style.overflow=''; });
+    document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); show(idx-1); });
+    document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); show(idx+1); });
+    lb.addEventListener('click', function(e){ if (e.target === lb) { lb.classList.remove('open'); body.style.overflow=''; } });
+    document.addEventListener('keydown', function(e){
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape'){ lb.classList.remove('open'); body.style.overflow=''; }
+      if (e.key === 'ArrowLeft') show(idx-1);
+      if (e.key === 'ArrowRight') show(idx+1);
+    });
+  }
+
+  // pause videos offscreen (экономия батареи)
+  if ('IntersectionObserver' in window){
+    document.querySelectorAll('video').forEach(function(v){
+      new IntersectionObserver(function(en){
+        en.forEach(function(e){ if (e.isIntersecting) { v.play().catch(function(){}); } else { v.pause(); } });
+      }, {threshold:.15}).observe(v);
+    });
+  }
+})();
+</script>
+</body>
+</html>

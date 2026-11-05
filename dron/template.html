@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="ru" data-theme="a">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Дрон Победы — учим летать, делаем дроны</title>
+<meta name="description" content="АНО «Дрон Победы» — секции и лицензированные программы обучения пилотированию БПЛА для детей и взрослых. ООО «Дрон Победы» — полный цикл производства FPV-дронов и импортозамещение компонентов. Москва.">
+<meta name="theme-color" content="#0A0B0D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Дрон Победы — учим летать, делаем дроны">
+<meta property="og:description" content="Образование и производство в одной экосистеме: от детских секций и мастер-классов до серийного выпуска FPV-дронов и импортозамещения электроники. Москва.">
+<meta property="og:locale" content="ru_RU">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%231E7BF5'/%3E%3Cpath d='M9 41c1-14 11-24 25-24 10 0 18 6 21 15-6-6-14-8-20-4-6 4-7 12-1 17-9 2-19-1-25-4z' fill='%23fff'/%3E%3C/svg%3E">
+<style>
+%%FONTS%%
+/* ============ ОФОРМЛЕНИЯ (4 варианта с макета) ============ */
+:root{
+  --bg:#0A0B0D; --bg2:#0F1116; --card:#14171D; --line:#252932; --line-soft:#1B1F27;
+  --ink:#F3F6F1; --mut:#98A1AE; --ac:#C9F551; --ac-ink:#0A0B0D; --ac-soft:rgba(201,245,81,.14);
+  --inv-bg:#F3F6F1; --inv-ink:#0A0B0D; --inv-mut:#4E5563; --inv-line:rgba(10,11,13,.16);
+  --photo:grayscale(.15) contrast(1.05);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --disp:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Onest",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+}
+html[data-theme="b"]{
+  --bg:#F4F2EC; --bg2:#EDEAE1; --card:#FFFFFF; --line:#DEDACE; --line-soft:#E7E3D8;
+  --ink:#0B0C10; --mut:#5A5F6B; --ac:#2540FF; --ac-ink:#FFFFFF; --ac-soft:rgba(37,64,255,.10);
+  --inv-bg:#0B0C10; --inv-ink:#F4F2EC; --inv-mut:#A7ACB8; --inv-line:rgba(244,242,236,.18);
+  --photo:grayscale(0) contrast(1.02);
+}
+html[data-theme="b1"]{
+  --bg:#1327D8; --bg2:#0E20BE; --card:#1B31F0; --line:#3B4EF5; --line-soft:#2A3DE8;
+  --ink:#FFFFFF; --mut:#C3CBFA; --ac:#FFFFFF; --ac-ink:#1327D8; --ac-soft:rgba(255,255,255,.16);
+  --inv-bg:#FFFFFF; --inv-ink:#1327D8; --inv-mut:#5A67C9; --inv-line:rgba(19,39,216,.18);
+  --photo:grayscale(.25) contrast(1.08) brightness(.95);
+}
+html[data-theme="b2"]{
+  --bg:#060606; --bg2:#0C0C0C; --card:#121212; --line:#242424; --line-soft:#1A1A1A;
+  --ink:#F7F5F2; --mut:#9A9A9A; --ac:#FF5A1F; --ac-ink:#0A0A0A; --ac-soft:rgba(255,90,31,.14);
+  --inv-bg:#F7F5F2; --inv-ink:#0A0A0A; --inv-mut:#555; --inv-line:rgba(10,10,10,.16);
+  --photo:grayscale(.1) contrast(1.06);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:88px;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);font:16px/1.6 var(--body);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  transition:background .45s ease,color .45s ease;
+}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--ac);color:var(--ac-ink)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 clamp(18px,5vw,56px)}
+.eyebrow{
+  display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--mut);margin-bottom:20px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--ac);flex:none}
+h1,h2,h3,h4{font-family:var(--disp);font-weight:700;line-height:1.0;letter-spacing:-.03em}
+h2{font-size:clamp(30px,4.4vw,58px);line-height:.98}
+h3{font-size:clamp(20px,2vw,28px);line-height:1.12;letter-spacing:-.02em}
+.ac{color:var(--ac)}
+.lead{color:var(--mut);font-size:clamp(15px,1.15vw,18px);max-width:60ch}
+
+/* ============ ШАПКА ============ */
+.nav{
+  position:fixed;inset:0 0 auto;z-index:60;height:76px;display:flex;align-items:center;
+  border-bottom:1px solid transparent;transition:background .3s,border-color .3s,backdrop-filter .3s;
+}
+.nav.on{background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom-color:var(--line-soft)}
+.nav-in{width:100%;max-width:1320px;margin:0 auto;padding:0 clamp(18px,5vw,56px);display:flex;align-items:center;gap:clamp(14px,3vw,40px)}
+.brand{display:flex;align-items:center;gap:11px;flex:none}
+.brand svg{width:38px;height:38px;flex:none}
+.brand b{font-family:var(--disp);font-weight:700;font-size:15px;letter-spacing:-.02em;line-height:1.05;display:block}
+.brand small{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);margin-top:3px}
+.nav-links{display:flex;gap:clamp(12px,2vw,28px);margin-left:auto;font-size:13.5px;font-weight:500}
+.nav-links a{color:var(--mut);transition:color .2s;position:relative;padding:6px 0}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--ac);transition:right .3s var(--ease)}
+.nav-links a:hover::after{right:0}
+.nav-cta{
+  display:inline-flex;align-items:center;gap:8px;background:var(--ac);color:var(--ac-ink);
+  padding:11px 20px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;
+  transition:transform .2s,filter .2s;
+}
+.nav-cta:hover{transform:translateY(-1px);filter:brightness(1.06)}
+.burger{display:none;width:44px;height:44px;margin-left:auto;align-items:center;justify-content:center}
+.burger span{display:block;width:20px;height:1.5px;background:var(--ink);position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0;width:20px;height:1.5px;background:var(--ink)}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.mob{position:fixed;inset:76px 0 auto;z-index:59;background:var(--bg);border-bottom:1px solid var(--line);
+  padding:24px clamp(18px,5vw,56px) 32px;display:none;flex-direction:column;gap:4px}
+.mob.open{display:flex}
+.mob a{font-family:var(--disp);font-size:22px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+.mob small{color:var(--mut);font-size:12px;margin-top:16px}
+
+/* ============ HERO ============ */
+.hero{position:relative;padding:calc(76px + clamp(28px,6vw,72px)) 0 0;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:linear-gradient(var(--line-soft) 1px,transparent 1px),linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+  background-size:100% 96px,calc(100%/6) 100%;
+  mask-image:radial-gradient(120% 80% at 20% 0%,#000 30%,transparent 75%);
+  -webkit-mask-image:radial-gradient(120% 80% at 20% 0%,#000 30%,transparent 75%);
+}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(24px,4vw,64px);align-items:end}
+.hero-txt{display:flex;flex-direction:column;align-items:flex-start;padding-bottom:clamp(24px,4vw,48px)}
+h1{font-size:clamp(38px,7.4vw,96px);letter-spacing:-.045em;margin:0 0 26px}
+h1 .ln{display:block}
+h1 .out{
+  -webkit-text-stroke:1.4px var(--ink);color:transparent;
+  background:none;
+}
+html[data-theme="b"] h1 .out{color:var(--ac);-webkit-text-stroke:0}
+.hero-sub{max-width:46ch;color:var(--mut);font-size:clamp(15px,1.2vw,18px);line-height:1.62}
+.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin:30px 0 0}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:15px 24px;border-radius:999px;
+  font-size:14px;font-weight:700;border:1px solid transparent;transition:transform .18s,background .2s,color .2s,border-color .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-fill{background:var(--ac);color:var(--ac-ink)}
+.btn-line{border-color:var(--line);color:var(--ink)}
+.btn-line:hover{border-color:var(--ink)}
+.btn .ar{transition:transform .2s}
+.btn:hover .ar{transform:translateX(3px)}
+.hero-facts{display:flex;flex-wrap:wrap;gap:0;margin-top:clamp(26px,4vw,44px);border-top:1px solid var(--line);width:100%}
+.hero-facts div{flex:1 1 140px;padding:16px 18px 0 0;min-width:0}
+.hero-facts b{display:block;font-family:var(--disp);font-size:15px;margin-bottom:3px}
+.hero-facts span{font-size:12.5px;color:var(--mut);line-height:1.4;display:block}
+
+.hero-media{position:relative;align-self:stretch;min-height:clamp(360px,52vw,620px)}
+.hero-media figure{position:relative;height:100%;border-radius:22px;overflow:hidden;background:var(--bg2)}
+.hero-media img{width:100%;height:100%;object-fit:cover;filter:var(--photo);animation:kb 24s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.02)}to{transform:scale(1.12)}}
+.hero-media::after{
+  content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;
+  box-shadow:inset 0 0 0 1px var(--inv-line);
+  background:linear-gradient(to top,rgba(0,0,0,.55),transparent 45%);
+}
+.live{
+  position:absolute;top:16px;left:16px;z-index:2;display:inline-flex;align-items:center;gap:8px;
+  background:rgba(10,11,13,.62);backdrop-filter:blur(8px);color:#fff;
+  padding:8px 14px;border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 0 var(--ac);animation:pulse 2.4s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(201,245,81,.6)}70%{box-shadow:0 0 0 9px rgba(201,245,81,0)}100%{box-shadow:0 0 0 0 rgba(201,245,81,0)}}
+.hero-cap{
+  position:absolute;left:16px;right:16px;bottom:18px;z-index:2;display:flex;align-items:flex-end;
+  justify-content:space-between;gap:12px;color:#fff;
+}
+.hero-cap p{font-size:12.5px;line-height:1.4;max-width:24ch;opacity:.9}
+.hero-cap b{font-family:var(--disp);font-size:13px;display:block;margin-bottom:4px}
+.stamp{
+  flex:none;width:84px;height:84px;border-radius:50%;display:grid;place-items:center;text-align:center;
+  background:var(--ac);color:var(--ac-ink);font-family:var(--disp);font-size:8.5px;line-height:1.22;
+  letter-spacing:0;font-weight:700;padding:9px;transform:rotate(-6deg);margin:0 8px 10px 0;
+  overflow:hidden;
+}
+.stamp span{display:block}
+
+/* ============ БЕГУЩАЯ СТРОКА ============ */
+.marquee{background:var(--ac);color:var(--ac-ink);overflow:hidden;margin-top:clamp(30px,5vw,64px);border-block:1px solid var(--ac)}
+.mq-track{display:flex;gap:0;width:max-content;animation:mq 34s linear infinite}
+.mq-track span{
+  display:inline-flex;align-items:center;gap:26px;padding:14px 26px;font-family:var(--disp);
+  font-size:clamp(13px,1.5vw,17px);letter-spacing:-.01em;white-space:nowrap;
+}
+.mq-track span::after{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ============ ЦИФРЫ ============ */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.stat{padding:clamp(26px,4vw,44px) clamp(14px,2vw,28px);border-right:1px solid var(--line);position:relative}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:0}
+.stat b{font-family:var(--disp);font-size:clamp(34px,5vw,62px);line-height:.94;letter-spacing:-.05em;display:block}
+.stat b i{font-style:normal;font-size:.42em;margin-left:2px;color:var(--mut)}
+.stat p{font-size:12.5px;line-height:1.45;color:var(--mut);margin-top:12px;max-width:24ch}
+.stat.hl b{color:var(--ac)}
+
+/* ============ ОБЩИЕ СЕКЦИИ ============ */
+.sec{padding:clamp(56px,8vw,120px) 0 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:clamp(26px,4vw,52px)}
+.sec-head .lead{margin-top:16px}
+
+/* bento about */
+.bento{display:grid;grid-template-columns:1.35fr 1fr;grid-template-rows:auto auto;gap:clamp(12px,1.4vw,20px)}
+.bcard{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:var(--card);display:flex;flex-direction:column;position:relative;transition:border-color .25s,transform .25s}
+.bcard:hover{border-color:var(--ac)}
+.bcard .ph{position:relative;overflow:hidden;aspect-ratio:16/9;background:var(--bg2)}
+.bcard .ph img{width:100%;height:100%;object-fit:cover;filter:var(--photo);transition:transform .7s var(--ease)}
+.bcard:hover .ph img{transform:scale(1.05)}
+.bcard .bd{padding:clamp(18px,2vw,28px)}
+.bcard .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ac);font-weight:600;display:block;margin-bottom:12px}
+.bcard p{color:var(--mut);font-size:14.5px;margin-top:12px;line-height:1.6}
+.bcard .lk{display:inline-flex;gap:8px;margin-top:18px;font-size:13px;font-weight:700;border-bottom:1px solid var(--ac);padding-bottom:3px}
+.bento .tall{grid-row:span 2}
+.bento .tall .ph{aspect-ratio:auto;flex:1;min-height:180px}
+.bquote{
+  background:var(--ac);color:var(--ac-ink);border-radius:20px;padding:clamp(20px,2.4vw,34px);
+  display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:200px;border:1px solid var(--ac);
+}
+.bquote q{font-family:var(--disp);font-size:clamp(19px,2.1vw,27px);line-height:1.14;letter-spacing:-.03em;quotes:none;display:block}
+.bquote small{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.75;font-weight:600}
+
+/* программы — редакционный список, не карточки */
+.progs{border-top:1px solid var(--line)}
+.prow{display:grid;grid-template-columns:56px minmax(0,1fr) minmax(0,.86fr) 200px;gap:clamp(14px,2.4vw,36px);align-items:center;
+  padding:clamp(20px,2.6vw,32px) 0;border-bottom:1px solid var(--line);transition:background .25s;position:relative}
+.prow:hover{background:linear-gradient(90deg,var(--ac-soft),transparent 70%)}
+.prow .no{font-family:var(--disp);font-size:13px;color:var(--mut);letter-spacing:.04em}
+.prow h3{transition:color .2s}
+.prow:hover h3{color:var(--ac)}
+.prow .pmeta{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-top:10px;display:block}
+.prow p{color:var(--mut);font-size:14px;line-height:1.6}
+.prow .thumb{aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--bg2)}
+.prow .thumb img{width:100%;height:100%;object-fit:cover;filter:var(--photo);transition:transform .6s var(--ease)}
+.prow:hover .thumb img{transform:scale(1.07)}
+
+/* занятие */
+.lesson{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(18px,3vw,44px);margin-top:clamp(30px,4vw,60px);align-items:center}
+.lesson figure{border-radius:20px;overflow:hidden;aspect-ratio:4/3;background:var(--bg2);position:relative}
+.lesson img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.lesson h3{margin-bottom:18px}
+.lesson>div>p{color:var(--mut);font-size:15px;line-height:1.65}
+.checks{list-style:none;margin-top:22px;display:grid;gap:11px}
+.checks li{display:flex;gap:12px;font-size:14.5px;line-height:1.5;padding-bottom:11px;border-bottom:1px solid var(--line-soft)}
+.checks li:last-child{border-bottom:0;padding-bottom:0}
+.checks li::before{content:"";flex:none;width:16px;height:16px;margin-top:2px;border-radius:50%;border:1px solid var(--ac);background:
+  radial-gradient(circle,var(--ac) 0 3.5px,transparent 4px)}
+
+/* галерея */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(130px,15vw,200px);gap:clamp(8px,1.1vw,14px)}
+.gal figure{position:relative;overflow:hidden;border-radius:16px;background:var(--bg2)}
+.gal img{width:100%;height:100%;object-fit:cover;filter:var(--photo);transition:transform .8s var(--ease),filter .4s}
+.gal figure:hover img{transform:scale(1.06);filter:none}
+.gal figcaption{
+  position:absolute;inset:auto 0 0;padding:14px 16px;font-size:12px;font-weight:500;color:#fff;
+  background:linear-gradient(to top,rgba(0,0,0,.78),transparent);opacity:0;transform:translateY(6px);
+  transition:opacity .3s,transform .3s;
+}
+.gal figure:hover figcaption{opacity:1;transform:none}
+.g1{grid-column:span 2;grid-row:span 2}
+.g2{grid-column:span 2}
+.g5{grid-column:span 2}
+.g6{grid-column:span 2}
+.g7{grid-column:span 2}
+
+/* фото занятий в блоке «Обучение» */
+.edu-shots{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.1vw,14px);margin-top:clamp(26px,3.4vw,46px)}
+.edu-shots figure{position:relative;overflow:hidden;border-radius:16px;background:var(--bg2);aspect-ratio:4/3}
+.edu-shots img{width:100%;height:100%;object-fit:cover;filter:var(--photo);transition:transform .8s var(--ease),filter .4s}
+.edu-shots figure:hover img{transform:scale(1.06);filter:none}
+
+/* производство — инверсия */
+.prod{margin-top:clamp(56px,8vw,120px);background:var(--inv-bg);color:var(--inv-ink);padding:clamp(44px,7vw,100px) 0;position:relative;overflow:hidden}
+.prod .eyebrow{color:var(--inv-mut)}
+.prod .eyebrow::before{background:var(--ac)}
+.prod h2 .ac{color:inherit;text-decoration:underline;text-decoration-color:var(--ac);
+  text-decoration-thickness:.09em;text-underline-offset:.1em}
+.prod .lead{color:var(--inv-mut)}
+.prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,64px);margin-top:clamp(28px,4vw,48px);align-items:start}
+.ramp{border:1px solid var(--inv-line);border-radius:18px;padding:clamp(18px,2.4vw,28px)}
+.ramp-top{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--inv-mut);margin-bottom:16px}
+.ramp-nums{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 12px;margin-bottom:6px}
+.ramp-nums b{font-family:var(--disp);font-size:clamp(34px,4.4vw,56px);line-height:.9;letter-spacing:-.05em;white-space:nowrap}
+.ramp-nums > span{flex-basis:100%;font-size:12.5px;color:var(--inv-mut);line-height:1.3}
+.ramp-nums em{font-style:normal;color:var(--ac);font-size:clamp(20px,2.4vw,28px);font-family:var(--disp)}
+.ramp-bar{height:10px;border-radius:999px;background:color-mix(in srgb,var(--inv-ink) 12%,transparent);overflow:hidden;margin:20px 0 14px;position:relative}
+.ramp-bar i{position:absolute;inset:0 auto 0 0;width:20%;background:var(--ac);border-radius:999px;transition:width 1.5s var(--ease)}
+.ramp-bar b{position:absolute;top:-3px;bottom:-3px;left:20%;width:2px;background:var(--inv-ink);opacity:.4}
+.ramp-legend{display:flex;justify-content:space-between;font-size:12px;color:var(--inv-mut);gap:16px}
+.ramp-legend b{color:var(--inv-ink)}
+.prod-list{list-style:none;display:grid;gap:0;border-top:1px solid var(--inv-line)}
+.prod-list li{display:grid;grid-template-columns:38px 1fr;gap:14px;padding:15px 0;border-bottom:1px solid var(--inv-line);font-size:14.5px;line-height:1.5;align-items:start}
+.prod-list span{font-family:var(--disp);font-size:12px;color:var(--ac);padding-top:3px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chips span{border:1px solid var(--inv-line);border-radius:999px;padding:8px 15px;font-size:12.5px;font-weight:500}
+.prod-note{margin-top:26px;padding:18px 20px;border-left:2px solid var(--ac);background:color-mix(in srgb,var(--inv-ink) 5%,transparent);font-size:13.5px;line-height:1.6;color:var(--inv-mut)}
+.prod-note b{color:var(--inv-ink);display:block;margin-bottom:4px}
+.prod-imgs{display:grid;grid-template-columns:1fr 1fr;gap:clamp(8px,1.2vw,14px);margin-top:clamp(26px,4vw,44px)}
+.prod-imgs figure{border-radius:16px;overflow:hidden;aspect-ratio:3/2;background:var(--bg2)}
+.prod-imgs img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.partners{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:clamp(26px,4vw,40px);padding-top:24px;border-top:1px solid var(--inv-line);align-items:baseline}
+.partners p{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--inv-mut);flex:none}
+.partners ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px 26px;font-size:13px;color:var(--inv-mut)}
+.partners li{position:relative;padding-left:12px}
+.partners li::before{content:"";position:absolute;left:0;top:.62em;width:4px;height:4px;background:var(--ac);border-radius:50%}
+
+/* планы */
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:0 clamp(24px,4vw,64px);border-top:1px solid var(--line)}
+.plan{display:grid;grid-template-columns:46px 1fr;gap:16px;padding:clamp(20px,2.6vw,30px) 0;border-bottom:1px solid var(--line);transition:padding-left .25s}
+.plan:hover{padding-left:8px}
+.plan .n{font-family:var(--disp);font-size:12px;color:var(--ac)}
+.plan h3{margin-bottom:10px}
+.plan p{color:var(--mut);font-size:14px;line-height:1.6}
+
+/* FAQ */
+.faq{border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{
+  list-style:none;cursor:pointer;padding:22px 44px 22px 0;font-size:clamp(15px,1.5vw,18px);
+  font-weight:600;position:relative;line-height:1.4;transition:color .2s;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:hover{color:var(--ac)}
+.faq summary::after{
+  content:"";position:absolute;right:8px;top:50%;width:12px;height:12px;margin-top:-7px;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:rotate(45deg);transition:transform .3s;
+}
+.faq details[open] summary::after{transform:rotate(-135deg);margin-top:-1px}
+.faq .a{padding:0 clamp(0px,6vw,90px) 24px 0;color:var(--mut);font-size:14.5px;line-height:1.7;max-width:80ch}
+
+/* CTA */
+.cta{margin:clamp(56px,8vw,110px) 0 0;background:var(--ac);color:var(--ac-ink);border-radius:26px;padding:clamp(28px,4.5vw,60px);display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,56px);align-items:center}
+.cta h2{max-width:18ch}
+.cta p{margin-top:18px;font-size:15px;line-height:1.6;max-width:44ch;opacity:.82}
+.cta .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.cta .btn-dark{background:var(--ac-ink);color:var(--ac)}
+.cta .btn-out{border:1px solid color-mix(in srgb,var(--ac-ink) 35%,transparent);color:var(--ac-ink)}
+.cta-card{background:color-mix(in srgb,var(--ac-ink) 8%,transparent);border:1px solid color-mix(in srgb,var(--ac-ink) 18%,transparent);border-radius:18px;padding:clamp(18px,2.4vw,28px)}
+.cta-card h4{font-size:12px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:16px;font-weight:600}
+.c-links{list-style:none;display:grid;gap:0}
+.c-links li{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--ac-ink) 14%,transparent);font-size:14px}
+.c-links li:last-child{border-bottom:0}
+.c-links span{opacity:.66}
+.c-links a,.c-links b{font-weight:700}
+.c-links a{border-bottom:1px solid transparent;transition:border-color .2s}
+.c-links a:hover{border-color:currentColor}
+.c-note{margin-top:16px;font-size:12px;line-height:1.5;opacity:.66}
+
+/* FOOTER */
+footer{padding:clamp(44px,6vw,80px) 0 34px;margin-top:clamp(40px,6vw,72px);border-top:1px solid var(--line)}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:clamp(22px,3vw,44px)}
+.f-brand .brand{margin-bottom:16px}
+.f-brand p{color:var(--mut);font-size:13.5px;line-height:1.6;max-width:34ch}
+.f-col h5{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut);margin-bottom:14px;font-weight:600}
+.f-col a,.f-col p{display:block;font-size:13.5px;color:var(--mut);padding:5px 0;transition:color .2s}
+.f-col a:hover{color:var(--ink)}
+.f-bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:clamp(28px,4vw,48px);padding-top:22px;border-top:1px solid var(--line-soft);font-size:12px;color:var(--mut)}
+
+/* переключатель оформления */
+.themes{position:fixed;right:16px;bottom:16px;z-index:70;display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+  opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .3s,visibility .3s,transform .3s}
+.themes.show{opacity:1;visibility:visible;transform:none}
+.themes-btn{
+  display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);
+  border-radius:999px;padding:9px 15px;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  box-shadow:0 8px 26px rgba(0,0,0,.24);
+}
+.themes-btn i{width:9px;height:9px;border-radius:50%;background:var(--ac);display:block;flex:none}
+.themes-btn .t-short{display:none}
+.themes-panel{display:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:10px;box-shadow:0 14px 44px rgba(0,0,0,.3);width:216px}
+.themes-panel.open{display:block}
+.themes-panel p{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);padding:4px 8px 10px}
+.themes-panel button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;font-size:12.5px;padding:9px 8px;border-radius:9px;transition:background .18s}
+.themes-panel button:hover{background:var(--ac-soft)}
+.themes-panel button.on{background:var(--ac-soft)}
+.themes-panel em{width:14px;height:14px;border-radius:50%;flex:none;border:1px solid rgba(0,0,0,.25)}
+
+/* анимации появления */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ============ АДАПТИВ ============ */
+@media (max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:28px}
+  .hero-media{min-height:clamp(300px,58vw,460px);order:2}
+  .hero-txt{order:1;padding-bottom:0}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{border-bottom:1px solid var(--line)}
+  .stat:nth-child(2n){border-right:0}
+  .stat:nth-child(1),.stat:nth-child(2){padding-top:clamp(26px,4vw,40px)}
+  .bento{grid-template-columns:1fr}
+  .bento .tall{grid-row:auto}
+  .bento .tall .ph{aspect-ratio:16/9;min-height:0}
+  .prow{grid-template-columns:36px minmax(0,1fr) 150px;
+        grid-template-areas:"no head thumb" "no text text";row-gap:12px;align-items:start}
+  .prow .no{grid-area:no;padding-top:6px}
+  .prow .phead{grid-area:head}
+  .prow .ptext{grid-area:text}
+  .prow .thumb{grid-area:thumb}
+  .lesson,.prod-grid{grid-template-columns:1fr}
+  .edu-shots{grid-template-columns:repeat(2,1fr)}
+  .plans{grid-template-columns:1fr}
+  .cta{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:repeat(2,1fr)}
+  .g1{grid-column:span 2;grid-row:span 1}
+  .g2,.g5{grid-column:span 1}
+}
+@media (max-width:760px){
+  h1 .out{color:var(--ac);-webkit-text-stroke:0}
+  .hero-media .stamp{display:none}
+  .nav-links,.nav-cta{display:none}
+  .burger{display:flex}
+  .brand b{font-size:13px}
+  h1{font-size:clamp(34px,10vw,54px)}
+  .stat b{font-size:clamp(30px,9vw,44px)}
+  .prow{grid-template-columns:28px minmax(0,1fr);gap:10px;grid-template-areas:"no head" "no text"}
+  .prow .thumb{display:none}
+  .f-grid{grid-template-columns:1fr;gap:26px}
+  .f-bottom{flex-direction:column}
+  .hero-cap p{display:none}
+  .stamp{width:74px;height:74px;font-size:9px}
+  .themes{right:10px;bottom:10px}
+  .themes-btn{font-size:10px;padding:7px 11px}
+  .themes-btn .t-full{display:none}
+  .themes-btn .t-short{display:inline}
+  .themes-panel{width:200px}
+  .gal{grid-auto-rows:clamp(140px,34vw,220px)}
+  .cta{border-radius:20px}
+  .gal figcaption{opacity:1;transform:none;background:linear-gradient(to top,rgba(0,0,0,.7),transparent)}
+}
+@media print{
+  .nav,.mob,.themes,.marquee{display:none}
+  .rv{opacity:1;transform:none}
+  body{background:#fff;color:#000}
+}
+</style>
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Дрон Победы — на главную">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="wv" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#1E7BF5"/><stop offset=".48" stop-color="#0D9BE8"/><stop offset="1" stop-color="#46DB7E"/>
+          </linearGradient>
+          <clipPath id="cl"><circle cx="32" cy="32" r="32"/></clipPath>
+        </defs>
+        <g clip-path="url(#cl)">
+          <circle cx="32" cy="32" r="32" fill="url(#wv)"/>
+          <path d="M8 43c0-15 11-26 25-26 11 0 19 6 22 15-6.5-6-14.5-7.6-20.6-3.4-6 4.2-6.6 12.4-.4 17.4C24 48 14 47 8 43z" fill="#fff"/>
+          <path d="M40.5 26.5c-6.2 0-10.4 4.2-10.4 9.3 0 4.3 3.2 6.5 7.2 7.3 3.2.6 5 1.9 5 4.1 0 2.6-2.6 4.3-6.2 4.3" fill="none" stroke="#0E6FD8" stroke-width="3.6" stroke-linecap="round"/>
+          <g stroke="#0B3E8F" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M43 9.5 33.5 19"/><path d="M33.4 13.8v5.2h5.2"/>
+            <path d="M54 17.5 43.6 26"/><path d="M43.2 25.6h5.6v-5.6"/>
+            <path d="M49.5 34.5 38 32"/><path d="M49.2 34.4l-4.6-5"/>
+          </g>
+        </g>
+      </svg>
+      <span><b>Дрон Победы</b><small>Москва</small></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#about">О проекте</a>
+      <a href="#edu">Обучение</a>
+      <a href="#events">События</a>
+      <a href="#prod">Производство</a>
+      <a href="#plans">Планы</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a class="nav-cta" href="https://t.me/DronPobedy" target="_blank" rel="noopener">Написать <span class="ar">→</span></a>
+    <button class="burger" id="burger" aria-label="Меню" aria-expanded="false"><span></span></button>
+  </div>
+</header>
+<div class="mob" id="mob">
+  <a href="#about">О проекте</a>
+  <a href="#edu">Обучение</a>
+  <a href="#events">События</a>
+  <a href="#prod">Производство</a>
+  <a href="#plans">Планы</a>
+  <a href="#faq">Вопросы</a>
+  <a href="#contact">Связаться</a>
+  <small>Москва · АНО и ООО «Дрон Победы»</small>
+</div>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="hero-txt">
+      <span class="eyebrow">Москва · образование · производство</span>
+      <h1><span class="ln">Учим летать.</span><span class="ln out">Делаем дроны.</span></h1>
+      <p class="hero-sub">Формируем культуру пилотирования среди гражданского населения и создаём производственный кластер для нужд обороны и гражданской экономики России.</p>
+      <div class="hero-btns">
+        <a class="btn btn-fill" href="#edu">Обучение и секции <span class="ar">→</span></a>
+        <a class="btn btn-line" href="#prod">Производство и продукция</a>
+      </div>
+      <div class="hero-facts">
+        <div><b>АНО</b><span>просвещение и кадры</span></div>
+        <div><b>ООО</b><span>технологии и выпуск</span></div>
+        <div><b>1 экосистема</b><span>от секции до серии</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <figure>
+        <img src="%%IMG:hero%%" alt="Полевые занятия: операторы работают с FPV-дроном за ноутбуками" fetchpriority="high">
+        <span class="live"><i></i>На занятиях</span>
+        <div class="hero-cap">
+          <p><b>Полевая подготовка</b>Операторы и инструкторы на выездном занятии</p>
+          <span class="stamp"><span>Время<br>действовать —<br>время<br>побеждать</span></span>
+        </div>
+      </figure>
+    </div>
+  </div>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <span>Обучение</span><span>Производство</span><span>Импортозамещение</span><span>FPV-дроны</span><span>Детские секции</span><span>Мастер-классы</span><span>Лето в Москве</span><span>Кадровый резерв</span>
+      <span>Обучение</span><span>Производство</span><span>Импортозамещение</span><span>FPV-дроны</span><span>Детские секции</span><span>Мастер-классы</span><span>Лето в Москве</span><span>Кадровый резерв</span>
+    </div>
+  </div>
+</section>
+
+<!-- ЦИФРЫ -->
+<section class="wrap">
+  <div class="stats">
+    <div class="stat hl"><b><span class="count" data-to="1000">1000</span></b><p>дронов в месяц — стартовый плановый объём выпуска</p></div>
+    <div class="stat"><b><span class="count" data-to="5000">5000</span></b><p>дронов в месяц — потенциал роста за 3–4 месяца</p></div>
+    <div class="stat"><b><span class="count" data-to="144">144</span><i>ч</i></b><p>максимальная программа обучения для взрослых</p></div>
+    <div class="stat"><b><span class="count" data-to="3">3</span></b><p>мастер-класса в неделю в программе «Лето в Москве»</p></div>
+  </div>
+</section>
+
+<!-- О ПРОЕКТЕ -->
+<section class="sec wrap" id="about">
+  <div class="sec-head rv">
+    <div>
+      <span class="eyebrow">01 — О проекте</span>
+      <h2>Два направления — <span class="ac">одна миссия</span></h2>
+      <p class="lead">Вместе они образуют замкнутую экосистему: от обучения юных пилотов до серийного производства дронов.</p>
+    </div>
+  </div>
+  <div class="bento">
+    <article class="bcard tall rv">
+      <div class="ph"><img src="%%IMG:about_a%%" alt="Дети осваивают пилотирование с VR-очками на занятии" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">АНО · просвещение</span>
+        <h3>Готовим кадры для отрасли</h3>
+        <p>Популяризируем беспилотную авиацию и формируем кадровый резерв — от детских секций до лицензированных программ для взрослых.</p>
+        <a class="lk" href="#edu">Обучение и секции <span class="ar">→</span></a>
+      </div>
+    </article>
+    <article class="bcard rv">
+      <div class="ph"><img src="%%IMG:about_b%%" alt="Инструкторы и операторы у ноутбуков с телеметрией" loading="lazy"></div>
+      <div class="bd">
+        <span class="tag">ООО · технологии</span>
+        <h3>Производим дроны и компоненты</h3>
+        <p>Технологический суверенитет и полный цикл производства с акцентом на импортозамещение электроники и комплектующих.</p>
+        <a class="lk" href="#prod">Производство и продукция <span class="ar">→</span></a>
+      </div>
+    </article>
+    <div class="bquote rv">
+      <q>Время действовать — время побеждать</q>
+      <small>Дрон Победы · Москва</small>
+    </div>
+  </div>
+</section>
+
+<!-- ОБУЧЕНИЕ -->
+<section class="sec wrap" id="edu">
+  <div class="sec-head rv">
+    <div>
+      <span class="eyebrow">02 — Обучение</span>
+      <h2>Обучение <span class="ac">и секции</span></h2>
+      <p class="lead">Программы охватывают все возрастные группы — от детей до взрослых специалистов, включая подготовку инструкторов.</p>
+    </div>
+    <a class="btn btn-line" href="#contact">Записаться <span class="ar">→</span></a>
+  </div>
+
+  <div class="progs">
+    <a class="prow rv" href="#contact">
+      <span class="no">01</span>
+      <div class="phead">
+        <h3>Работа с молодёжью</h3>
+        <span class="pmeta">Дети и молодёжь</span>
+      </div>
+      <p class="ptext">Детские секции на базе спортивных центров и образовательных учреждений: первые полёты, симулятор, сборка и настройка.</p>
+      <div class="thumb"><img src="%%IMG:edu_1%%" alt="Дети и взрослые на мастер-классе под открытым павильоном" loading="lazy"></div>
+    </a>
+    <a class="prow rv" href="#contact">
+      <span class="no">02</span>
+      <div class="phead">
+        <h3>Городская интеграция</h3>
+        <span class="pmeta">Городские программы</span>
+      </div>
+      <p class="ptext">Участие в городских программах, например «Лето в Москве»: три мастер-класса в неделю для жителей города — бесплатно и без подготовки.</p>
+      <div class="thumb"><img src="%%IMG:edu_3%%" alt="Стенд «Дрон Победы» на городской площадке" loading="lazy"></div>
+    </a>
+    <a class="prow rv" href="#contact">
+      <span class="no">03</span>
+      <div class="phead">
+        <h3>Профессиональное обучение</h3>
+        <span class="pmeta">Взрослые · 32–144 ч</span>
+      </div>
+      <p class="ptext">Лицензированные программы для взрослых от 32 до 144 часов, включая курс подготовки инструкторов и работу на реальных аппаратах.</p>
+      <div class="thumb"><img src="%%IMG:edu_2%%" alt="Курсанты отрабатывают управление дроном на тренажёре" loading="lazy"></div>
+    </a>
+  </div>
+
+  <div class="edu-shots rv">
+    <figure><img src="%%IMG:edu_a%%" alt="Наставник показывает курсанту пульт управления на занятии в классе" loading="lazy"></figure>
+    <figure><img src="%%IMG:edu_b%%" alt="Инструктор объясняет устройство квадрокоптера, на экране слайд «Из чего состоит дрон?»" loading="lazy"></figure>
+    <figure><img src="%%IMG:edu_c%%" alt="Инструктор с учебным квадрокоптером в защите винтов, курсант работает на симуляторе" loading="lazy"></figure>
+  </div>
+
+  <div class="lesson rv">
+    <figure><img src="%%IMG:lesson%%" alt="Подготовка FPV-дрона к вылету на полевой площадке" loading="lazy"></figure>
+    <div>
+      <span class="eyebrow">Как проходит занятие</span>
+      <h3>От симулятора — до первого полёта в сетке</h3>
+      <p>Занятие в секции: теория и настройка аппарата, отработка на симуляторе, затем полёты в защищённой зоне под контролем инструктора.</p>
+      <ul class="checks">
+        <li>Группы по возрасту и уровню подготовки</li>
+        <li>Симулятор, учебные и гоночные FPV-аппараты</li>
+        <li>Защитная сетка и инструктор на каждом полёте</li>
+        <li>Курс подготовки инструкторов — для тех, кто пойдёт дальше</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- СОБЫТИЯ -->
+<section class="sec wrap" id="events">
+  <div class="sec-head rv">
+    <div>
+      <span class="eyebrow">03 — События</span>
+      <h2>Где нас <span class="ac">можно увидеть</span></h2>
+      <p class="lead">Секции, городские площадки, университеты и выставки — реальные кадры с занятий и мероприятий проекта.</p>
+    </div>
+  </div>
+  <div class="gal">
+    <figure class="g1 rv"><img src="%%IMG:g1%%" alt="Презентация FPV-дронов гостям мероприятия" loading="lazy"><figcaption>Презентация аппаратов гостям</figcaption></figure>
+    <figure class="g2 rv"><img src="%%IMG:g2%%" alt="Полётная зона, защищённая сеткой, и пилот с пультом" loading="lazy"><figcaption>Полётная зона в помещении</figcaption></figure>
+    <figure class="g3 rv"><img src="%%IMG:g3%%" alt="Награждение: вручение грамоты" loading="lazy"><figcaption>Награждение проекта</figcaption></figure>
+    <figure class="g4 rv"><img src="%%IMG:g4%%" alt="Мероприятие в РУДН: дроны на столе, участники за ноутбуками" loading="lazy"><figcaption>Университетская площадка</figcaption></figure>
+    <figure class="g5 rv"><img src="%%IMG:g5%%" alt="Групповое фото участников церемонии в колонном зале" loading="lazy"><figcaption>Церемония: команда и партнёры</figcaption></figure>
+    <figure class="g6 rv"><img src="%%IMG:g6%%" alt="Участники в футболках «Время действовать — время побеждать»" loading="lazy"><figcaption>Бренд проекта</figcaption></figure>
+    <figure class="g7 rv"><img src="%%IMG:g7%%" alt="Инструктор у экрана с презентацией «Из чего состоит дрон?», курсанты за ноутбуками" loading="lazy"><figcaption>Разбор конструкции дрона</figcaption></figure>
+    <figure class="g8 rv"><img src="%%IMG:g8%%" alt="Инструктор держит FPV-дрон в защите винтов на фоне доски" loading="lazy"><figcaption>Устройство FPV-аппарата</figcaption></figure>
+    <figure class="g9 rv"><img src="%%IMG:g9%%" alt="Инструктор помогает курсанту с пультом на симуляторе" loading="lazy"><figcaption>Настройка на симуляторе</figcaption></figure>
+  </div>
+</section>
+
+<!-- ПРОИЗВОДСТВО -->
+<section class="prod" id="prod">
+  <div class="wrap">
+    <div class="sec-head rv" style="margin-bottom:0">
+      <div>
+        <span class="eyebrow">04 — Производство</span>
+        <h2>Производство <span class="ac">и продукция</span></h2>
+        <p class="lead">Стратегическая цель — обеспечение потребностей СВО и последующий выход на гражданский рынок.</p>
+      </div>
+    </div>
+
+    <div class="prod-grid">
+      <div class="rv">
+        <ul class="prod-list">
+          <li><span>01</span>Полный цикл производства критически важных компонентов</li>
+          <li><span>02</span>Акцент на импортозамещении электроники и комплектующих</li>
+          <li><span>03</span>Выпуск FPV-дронов и компонентов</li>
+          <li><span>04</span>Производственная база — подготовленное помещение с защитой ПВО</li>
+        </ul>
+        <div class="chips">
+          <span>FPV-дроны</span><span>Карбоновые рамы</span><span>FPV-камеры</span><span>Двигатели</span><span>Электроника</span>
+        </div>
+        <div class="prod-note">
+          <b>Резидент АНО «Центр беспилотных систем и технологий»</b>
+          Экспертная и административная поддержка на всех уровнях и конкурентное преимущество для производственного направления.
+        </div>
+      </div>
+      <div class="rv">
+        <div class="ramp">
+          <div class="ramp-top"><span>План выпуска</span><span>3–4 месяца</span></div>
+          <div class="ramp-nums">
+            <b><span class="count" data-to="1000">1000</span></b><em>→</em><b><span class="count" data-to="5000">5000</span></b>
+            <span>дронов в месяц</span>
+          </div>
+          <div class="ramp-bar" id="ramp"><i></i><b></b></div>
+          <div class="ramp-legend"><span>Старт · <b>1000/мес</b></span><span>Потенциал · <b>5000/мес</b></span></div>
+        </div>
+        <div class="prod-imgs">
+          <figure><img src="%%IMG:prod_1%%" alt="Подготовка FPV-дрона к вылету" loading="lazy"></figure>
+          <figure><img src="%%IMG:prod_2%%" alt="Операторы у ноутбуков с телеметрией" loading="lazy"></figure>
+          <figure><img src="%%IMG:prod_3%%" alt="Участники проекта на официальном мероприятии" loading="lazy"></figure>
+          <figure><img src="%%IMG:hero2%%" alt="Полётная зона с защитной сеткой" loading="lazy"></figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="partners rv">
+      <p>Поддержка и площадки</p>
+      <ul>
+        <li>АНО «Центр беспилотных систем и технологий»</li>
+        <li>РУДН им. Патриса Лумумбы</li>
+        <li>«Лето в Москве»</li>
+        <li>Спортивные центры и образовательные учреждения</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ПЛАНЫ -->
+<section class="sec wrap" id="plans">
+  <div class="sec-head rv">
+    <div>
+      <span class="eyebrow">05 — Развитие</span>
+      <h2>Планы развития <span class="ac">и масштабирования</span></h2>
+    </div>
+  </div>
+  <div class="plans">
+    <article class="plan rv"><span class="n">01</span><div><h3>Локализация</h3><p>Импортозамещение карбоновых рам, FPV-камер и двигателей — меньше зависимости от внешних поставок.</p></div></article>
+    <article class="plan rv"><span class="n">02</span><div><h3>Рост мощностей</h3><p>Расширение производственных мощностей и выпуска — выход на серийные объёмы.</p></div></article>
+    <article class="plan rv"><span class="n">03</span><div><h3>Кадровый резерв</h3><p>Подготовка технологических специалистов в сфере БПЛА — от инструкторов до сборщиков.</p></div></article>
+    <article class="plan rv"><span class="n">04</span><div><h3>Регионы</h3><p>Федеральная структура с сетью региональных представительств.</p></div></article>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec wrap" id="faq">
+  <div class="sec-head rv">
+    <div>
+      <span class="eyebrow">06 — Вопросы</span>
+      <h2>Коротко <span class="ac">о главном</span></h2>
+    </div>
+  </div>
+  <div class="faq rv">
+    <details open>
+      <summary>Что такое «Дрон Победы»?</summary>
+      <div class="a">Проект на стыке образовательных инициатив и высокотехнологичного производства. АНО занимается просвещением и подготовкой кадров, ООО — технологиями, производством дронов и импортозамещением. Вместе они образуют замкнутую экосистему: от обучения юных пилотов до серийного выпуска аппаратов.</div>
+    </details>
+    <details>
+      <summary>С какого возраста можно заниматься?</summary>
+      <div class="a">Программы охватывают все возрастные группы. Для детей — секции на базе спортивных центров и образовательных учреждений, для взрослых — лицензированные программы от 32 до 144 часов, включая курс подготовки инструкторов.</div>
+    </details>
+    <details>
+      <summary>Нужен ли свой дрон и подготовка?</summary>
+      <div class="a">Нет. На занятиях используются учебные и гоночные аппараты проекта, симулятор и защищённая полётная зона. Начать можно с нуля — под руководством инструктора.</div>
+    </details>
+    <details>
+      <summary>Где проходят занятия?</summary>
+      <div class="a">На базе спортивных центров, образовательных учреждений и городских площадок — в том числе в рамках программы «Лето в Москве», где мы проводим три мастер-класса в неделю для жителей города.</div>
+    </details>
+    <details>
+      <summary>Можно ли заказать дроны или компоненты?</summary>
+      <div class="a">Да, ООО «Дрон Победы» выпускает FPV-дроны и компоненты, ведёт работу по импортозамещению электроники, карбоновых рам, камер и двигателей. Условия, объёмы и сроки обсуждаются индивидуально.</div>
+    </details>
+    <details>
+      <summary>Как стать партнёром или открыть представительство в регионе?</summary>
+      <div class="a">В планах развития — федеральная структура с сетью региональных представительств. Напишите нам, чтобы обсудить партнёрство, площадку для секции или сотрудничество по производству.</div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="wrap" id="contact">
+  <div class="cta rv">
+    <div>
+      <h2>Построим экосистему беспилотных технологий вместе</h2>
+      <p>Обучение, производство, партнёрство и региональное развитие. «Дрон Победы» открыт к сотрудничеству.</p>
+      <div class="row">
+        <a class="btn btn-dark" href="https://t.me/DronPobedy" target="_blank" rel="noopener">Написать в Telegram <span class="ar">→</span></a>
+        <a class="btn btn-out" href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">Мы во ВКонтакте</a>
+      </div>
+    </div>
+    <div class="cta-card">
+      <h4>Написать нам</h4>
+      <ul class="c-links">
+        <li><span>Telegram</span><a href="https://t.me/DronPobedy" target="_blank" rel="noopener">@DronPobedy</a></li>
+        <li><span>Канал</span><a href="https://t.me/FPVpobeda" target="_blank" rel="noopener">@FPVpobeda</a></li>
+        <li><span>ВКонтакте</span><a href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">/fpvpobeda</a></li>
+        <li><span>Город</span><b>Москва</b></li>
+      </ul>
+      <p class="c-note">Отвечаем в Telegram: обучение и секции, производство, партнёрство и представительства в регионах.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="#top">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <defs>
+              <linearGradient id="wv2" x1="6" y1="6" x2="58" y2="58" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#1E7BF5"/><stop offset=".48" stop-color="#0D9BE8"/><stop offset="1" stop-color="#46DB7E"/>
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="32" fill="url(#wv2)"/>
+            <path d="M8 43c0-15 11-26 25-26 11 0 19 6 22 15-6.5-6-14.5-7.6-20.6-3.4-6 4.2-6.6 12.4-.4 17.4C24 48 14 47 8 43z" fill="#fff"/>
+            <path d="M40.5 26.5c-6.2 0-10.4 4.2-10.4 9.3 0 4.3 3.2 6.5 7.2 7.3 3.2.6 5 1.9 5 4.1 0 2.6-2.6 4.3-6.2 4.3" fill="none" stroke="#0E6FD8" stroke-width="3.6" stroke-linecap="round"/>
+          </svg>
+          <span><b>Дрон Победы</b><small>Москва</small></span>
+        </a>
+        <p>Образование и производство в одной экосистеме: секции, мастер-классы, лицензированные программы и выпуск FPV-дронов.</p>
+      </div>
+      <div class="f-col">
+        <h5>Разделы</h5>
+        <a href="#about">О проекте</a>
+        <a href="#edu">Обучение и секции</a>
+        <a href="#prod">Производство</a>
+        <a href="#events">События</a>
+      </div>
+      <div class="f-col">
+        <h5>Ещё</h5>
+        <a href="#plans">Планы развития</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#contact">Связаться</a>
+      </div>
+      <div class="f-col">
+        <h5>Контакты</h5>
+        <a href="https://t.me/DronPobedy" target="_blank" rel="noopener">Telegram — @DronPobedy</a>
+        <a href="https://t.me/FPVpobeda" target="_blank" rel="noopener">Канал — @FPVpobeda</a>
+        <a href="https://vk.com/fpvpobeda" target="_blank" rel="noopener">ВКонтакте</a>
+        <p>Москва</p>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© <span id="yr">2026</span> АНО и ООО «Дрон Победы» · Москва</span>
+      <span>Время действовать — время побеждать</span>
+    </div>
+  </div>
+</footer>
+
+<!-- переключатель оформления -->
+<div class="themes">
+  <div class="themes-panel" id="themesPanel">
+    <p>Оформление</p>
+    <button data-t="a" class="on"><em style="background:#0A0B0D"></em>Вариант A — тёмный + лайм</button>
+    <button data-t="b"><em style="background:#2540FF"></em>Вариант B — светлый + кобальт</button>
+    <button data-t="b1"><em style="background:#1327D8"></em>Вариант B1 — кобальт</button>
+    <button data-t="b2"><em style="background:#FF5A1F"></em>Вариант B2 — чёрный + оранжевый</button>
+  </div>
+  <button class="themes-btn" id="themesBtn" aria-expanded="false" aria-label="Переключить оформление"><i></i><span class="t-full">Оформление</span><span class="t-short">Тема</span></button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* --- оформление --- */
+  var root = document.documentElement, panel = document.getElementById("themesPanel"),
+      tBtn = document.getElementById("themesBtn");
+  function setTheme(t){
+    root.setAttribute("data-theme", t);
+    try{ localStorage.setItem("dp-theme", t); }catch(e){}
+    Array.prototype.forEach.call(panel.querySelectorAll("button"), function(b){
+      b.classList.toggle("on", b.getAttribute("data-t") === t);
+    });
+  }
+  try{
+    var saved = localStorage.getItem("dp-theme");
+    if(saved && ["a","b","b1","b2"].indexOf(saved) > -1) setTheme(saved);
+  }catch(e){}
+  panel.addEventListener("click", function(e){
+    var b = e.target.closest("button[data-t]");
+    if(b){ setTheme(b.getAttribute("data-t")); }
+  });
+  tBtn.addEventListener("click", function(){
+    var open = panel.classList.toggle("open");
+    tBtn.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+
+  /* --- шапка --- */
+  var nav = document.getElementById("nav");
+  var themesBox = document.querySelector(".themes");
+  function onScroll(){
+    nav.classList.toggle("on", window.scrollY > 24);
+    if(themesBox){ themesBox.classList.toggle("show", window.scrollY > 360); }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+
+  /* --- мобильное меню --- */
+  var burger = document.getElementById("burger"), mob = document.getElementById("mob");
+  burger.addEventListener("click", function(){
+    var open = mob.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  mob.addEventListener("click", function(e){
+    if(e.target.tagName === "A"){ mob.classList.remove("open"); burger.setAttribute("aria-expanded","false"); }
+  });
+
+  /* --- появление блоков --- */
+  var rvs = document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window && !reduce){
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); }
+      });
+    }, {rootMargin:"0px 0px -8% 0px", threshold:0.08});
+    rvs.forEach(function(el){ io.observe(el); });
+  } else {
+    rvs.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  /* --- счётчики --- */
+  function fmt(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, "\u2009"); }
+  function runCount(el){
+    var to = parseFloat(el.getAttribute("data-to")) || 0;
+    if(reduce){ el.textContent = fmt(to); return; }
+    var t0 = null, dur = 1300;
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(to * e);
+      if(p < 1) requestAnimationFrame(step); else el.textContent = fmt(to);
+    }
+    requestAnimationFrame(step);
+  }
+  var counts = document.querySelectorAll(".count");
+  if("IntersectionObserver" in window){
+    var io2 = new IntersectionObserver(function(es){
+      es.forEach(function(en){ if(en.isIntersecting){ runCount(en.target); io2.unobserve(en.target); } });
+    }, {threshold:0.6});
+    counts.forEach(function(el){ io2.observe(el); });
+  }
+
+  /* --- шкала выпуска --- */
+  var ramp = document.getElementById("ramp");
+  if(ramp && "IntersectionObserver" in window && !reduce){
+    ramp.querySelector("i").style.width = "20%";
+    setTimeout(function(){
+      var io3 = new IntersectionObserver(function(es){
+        es.forEach(function(en){ if(en.isIntersecting){ en.target.querySelector("i").style.width = "100%"; io3.unobserve(en.target); } });
+      }, {threshold:0.5});
+      io3.observe(ramp);
+    }, 350);
+  } else if(ramp){
+    ramp.querySelector("i").style.width = "100%";
+  }
+
+  /* --- год --- */
+  var yr = document.getElementById("yr");
+  if(yr){ yr.textContent = new Date().getFullYear(); }
+
+  /* --- плавный переход по якорям с учётом шапки --- */
+  document.addEventListener("click", function(e){
+    var a = e.target.closest('a[href^="#"]');
+    if(!a) return;
+    var id = a.getAttribute("href");
+    if(id.length < 2) return;
+    var t = document.querySelector(id);
+    if(!t) return;
+    e.preventDefault();
+    var y = t.getBoundingClientRect().top + window.scrollY - 76;
+    window.scrollTo({top: y, behavior: reduce ? "auto" : "smooth"});
+    history.replaceState(null, "", id);
+  });
+})();
+</script>
+</body>
+</html>

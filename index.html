@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Вопрос Мебель — смета и фото вашей кухни до заказа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/konstruktor3d/konstruktor3d.css?v=1f64f00e">
+<style>
+:root{--bg:#e8eaec;--surface:#f6f7f8;--ink:#1f2326;--mute:#5d666d;--line:#c9ced2;--amber:#e89a1f;--on-amber:#1f2326;--wall:#d9d3ca}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1f22;--surface:#262b2f;--ink:#eceff1;--mute:#9aa4ab;--line:#3a4147;--wall:#4a4640}}
+:root[data-theme="dark"]{--bg:#1b1f22;--surface:#262b2f;--ink:#eceff1;--mute:#9aa4ab;--line:#3a4147;--wall:#4a4640}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Onest,system-ui,sans-serif;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+h1,h2,h3{font-family:Unbounded,Onest,system-ui,sans-serif;font-weight:500;line-height:1.12;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-block;background:var(--amber);color:var(--on-amber);font-weight:600;padding:12px 20px;
+border-radius:10px;text-decoration:none;border:0;cursor:pointer;font:inherit;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);
+backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;gap:16px}
+.logo{font-family:Unbounded,sans-serif;font-weight:700;font-size:15px;white-space:nowrap}
+.logo i{font-style:normal;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:8px;
+background:var(--amber);color:var(--on-amber);font-size:14px;margin-right:8px;vertical-align:-7px}
+header nav{display:flex;gap:20px;font-size:14.5px;color:var(--mute)}
+header nav a:hover{color:var(--ink)}
+.hero{display:grid;grid-template-columns:5fr 7fr;gap:40px;align-items:center;padding:44px 0 64px}
+h1{font-size:clamp(28px,4.2vw,46px);margin-bottom:18px}
+.lead{color:var(--mute);max-width:46ch;margin:0 0 24px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.stats{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap}
+.stats b{display:block;font-family:Unbounded,sans-serif;font-size:22px;color:var(--amber)}
+.stats span{color:var(--mute);font-size:13.5px}
+/* ── сравнение ── */
+.ba{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+background:var(--surface);aspect-ratio:4/3;touch-action:pan-y}.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+object-position:center;display:block}
+#under{z-index:1;clip-path:inset(0 0 0 50%)}
+#top{z-index:2;clip-path:inset(0 50% 0 0)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:5}
+#top,#under{transform-origin:50% 50%}
+.knob{position:absolute;top:0;bottom:0;width:3px;background:var(--amber);left:50%;pointer-events:none;z-index:4}
+.knob::after{content:"⇆";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;
+border-radius:50%;background:var(--amber);color:var(--on-amber);display:grid;place-items:center;font-size:18px}
+.tag{position:absolute;bottom:10px;padding:4px 10px;border-radius:99px;font-size:13px;font-weight:600;
+background:var(--surface);color:var(--ink);pointer-events:none;z-index:6}
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(24px,3vw,34px);margin-bottom:10px}
+.sub{color:var(--mute);margin:0 0 28px;max-width:60ch}
+.pair{margin-bottom:44px}
+.pair h3{font-size:19px;margin-bottom:4px}
+.pair .note{color:var(--mute);font-size:14px;margin:0 0 14px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cmp figure{margin:0;position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.cmp img{display:block;width:100%;height:320px;object-fit:cover;transition:.4s}
+.cmp figure:hover img{transform:scale(1.03)}
+.cmp figcaption{position:absolute;top:12px;left:12px;padding:6px 13px;border-radius:999px;font-size:12.5px;
+font-weight:700;letter-spacing:.4px;text-transform:uppercase;background:rgba(12,14,18,.78);color:#eef1f6;
+border:1px solid var(--line);backdrop-filter:blur(6px)}
+.cmp .posle figcaption{background:var(--amber);color:var(--on-amber);border:none}
+/* ── галерея ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);
+background:var(--surface);aspect-ratio:4/3}
+.card img{width:100%;height:100%;object-fit:cover;display:block;transition:.45s}
+.card:hover img{transform:scale(1.06)}
+.card span{position:absolute;left:0;right:0;bottom:0;padding:34px 15px 13px;font-size:14px;font-weight:600;
+background:linear-gradient(transparent,rgba(10,12,16,.92));color:#eef1f6}
+.card:nth-child(1){grid-row:span 2;aspect-ratio:auto}
+/* ── конструктор ── */
+.cfg{display:grid;grid-template-columns:7fr 5fr;gap:28px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px;min-width:0}
+.stage{padding:0;overflow:hidden;aspect-ratio:16/9;position:relative;background:var(--wall)}
+.stage .layer{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity .35s ease}
+.stage .layer.b{opacity:0}
+.stage .live{position:absolute;left:12px;top:12px;padding:6px 13px;border-radius:999px;font-size:12.5px;
+font-weight:700;text-transform:uppercase;background:rgba(12,14,18,.78);color:#eef1f6;border:1px solid var(--line);z-index:3}
+.stage .miss{position:absolute;inset:0;display:none;place-items:center;z-index:4;background:var(--wall);
+color:var(--mute);text-align:center;padding:20px;font-size:14px}
+fieldset{border:0;padding:0;margin:0 0 18px}
+legend{font-weight:600;margin-bottom:8px}
+.opts{display:flex;gap:8px;flex-wrap:wrap}
+.opts label{cursor:pointer}
+.opts input{position:absolute;opacity:0}
+.opts span{display:flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);
+border-radius:10px;font-size:14px}
+.opts input:checked+span{border-color:var(--amber);box-shadow:inset 0 0 0 1px var(--amber)}
+.opts input:focus-visible+span{outline:3px solid var(--amber)}
+.opts .na{color:var(--mute);font-size:11.5px;white-space:nowrap}
+.sw{width:16px;height:16px;border-radius:50%;border:1px solid var(--line);display:inline-block;flex:none}
+input[type=range].len{width:100%;accent-color:var(--amber)}
+.total{border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
+.total b{font-family:Unbounded,sans-serif;font-size:28px;font-weight:500;display:block}
+.total b.na{font-size:20px;color:var(--mute)}
+.total small{color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+td{padding:5px 0;border-bottom:1px dashed var(--line)}
+td:last-child{text-align:right;white-space:nowrap}
+td.na{color:var(--mute)}
+.cta-line{margin-top:14px}
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);
+border-radius:16px;overflow:hidden}
+.flow div{padding:22px;background:var(--surface)}
+.flow div+div{border-left:1px solid var(--line)}
+.flow h3{font-size:17px;margin-bottom:8px}
+.flow p{margin:0;color:var(--mute);font-size:15px}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.plans h3{font-size:18px;margin-bottom:6px}
+.plans .p{font-family:Unbounded,sans-serif;font-size:22px;color:var(--amber);margin-bottom:12px}
+.plans ul{padding-left:18px;margin:0 0 16px;color:var(--mute);font-size:15px}
+.plans .hl{border-color:var(--amber)}
+.cta{text-align:center;padding:64px 0;border-top:1px solid var(--line)}
+footer{color:var(--mute);font-size:13px;padding:0 0 28px;text-align:center}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:820px){.hero,.cfg{grid-template-columns:1fr}.flow,.plans{grid-template-columns:1fr}
+.flow div+div{border-left:0;border-top:1px solid var(--line)}header nav{display:none}}
+@media(max-width:640px){.cmp{grid-template-columns:1fr}.cmp img{height:230px}
+.grid{grid-template-columns:1fr}.card:nth-child(1){grid-row:auto;aspect-ratio:4/3}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <span class="logo"><i>В</i>Вопрос Мебель</span>
+  <nav><a href="#ba">До / После</a><a href="#works">Работы</a><a href="#cfg">Конструктор</a><a href="#how">Как это работает</a><a href="#plans">Цены</a></nav>
+  <a class="btn" href="#cta">Связаться</a>
+</div></header>
+
+<div class="wrap">
+<div class="hero">
+  <div>
+    <h1>Смета и фото вашей мебели — до того, как её сделали</h1>
+    <p class="lead">Пришлите чертёж или проект из PRO100. Мы посчитаем смету и покажем кухню в вашей комнате так, как она будет выглядеть в жизни.</p>
+    <div class="row"><a class="btn" href="#cfg">Собрать кухню</a><a class="btn ghost" href="#ba">Смотреть до / после</a></div>
+    <div class="stats">
+      <div><b>~1 мин</b><span>одна картинка</span></div>
+      <div><b>100%</b><span>планировка сохраняется</span></div>
+      <div><b>0 ₽</b><span>первый вариант</span></div>
+    </div>
+  </div>
+  <div class="ba" id="ba">
+    <img id="under" src="img/kuhnya1_posle.jpg?v=263ecc44" alt="Фотореалистичная кухня">
+    <img id="top" src="img/kuhnya1_do.jpg?v=a2d0acd5" alt="3D-проект из PRO100">
+    <div class="knob" id="knob"></div>
+    <span class="tag" style="left:10px">Проект</span><span class="tag" style="right:10px">Фото</span>
+    <input type="range" min="0" max="100" value="50" id="rng" aria-label="Сравнить проект и фото">
+  </div>
+</div>
+
+<section id="before">
+  <h2>До и после</h2>
+  <p class="sub">Слева — то, что отдаёт проектировщик. Справа — то, что видит заказчик. Планировка, фасады и техника остаются ровно на своих местах — меняются только материалы, свет и «жизнь» в кадре.</p>
+      <div class="pair">
+        <h3>Кухня — тёмный графит</h3>
+        <p class="note">Угловая кухня: холодильник в левом пенале, духовка — в правом. Проект из PRO100 и фотореализация одного и того же кадра</p>
+        <div class="cmp">
+          <figure><img src="img/kuhnya1_do.jpg?v=a2d0acd5" alt="Кухня — тёмный графит — рендер PRO100" loading="lazy"><figcaption>Проект</figcaption></figure>
+          <figure class="posle"><img src="img/kuhnya1_posle.jpg?v=263ecc44" alt="Кухня — тёмный графит — фотореализация" loading="lazy"><figcaption>Фото</figcaption></figure>
+        </div>
+      </div>
+      <div class="pair">
+        <h3>Кухня — графит с газовой панелью</h3>
+        <p class="note">Верхние и нижние фасады в одном цвете, фартук — светлое дерево</p>
+        <div class="cmp">
+          <figure><img src="img/kuhnya2_do.jpg?v=a7caf295" alt="Кухня — графит с газовой панелью — рендер PRO100" loading="lazy"><figcaption>Проект</figcaption></figure>
+          <figure class="posle"><img src="img/kuhnya2_posle.jpg?v=82f97022" alt="Кухня — графит с газовой панелью — фотореализация" loading="lazy"><figcaption>Фото</figcaption></figure>
+        </div>
+      </div>
+      <div class="pair">
+        <h3>Домашний офис</h3>
+        <p class="note">Терракотовые стены, встроенный стеллаж, стол у окна</p>
+        <div class="cmp">
+          <figure><img src="img/ofis1_do.jpg?v=357448c4" alt="Домашний офис — рендер PRO100" loading="lazy"><figcaption>Проект</figcaption></figure>
+          <figure class="posle"><img src="img/ofis1_posle.jpg?v=1f99eb80" alt="Домашний офис — фотореализация" loading="lazy"><figcaption>Фото</figcaption></figure>
+        </div>
+      </div>
+</section>
+
+<section id="works">
+  <h2>Наши работы</h2>
+  <p class="sub">Кухни и рабочие зоны, которые мы уже показывали заказчикам.</p>
+  <div class="grid">
+        <div class="card"><img src="img/rab1.jpg?v=57ee922c" alt="Кухня Japandi — дневной свет" loading="lazy"><span>Кухня Japandi — дневной свет</span></div>
+        <div class="card"><img src="img/rab2.jpg?v=3d64c5fc" alt="Кухня — светлый дуб" loading="lazy"><span>Кухня — светлый дуб</span></div>
+        <div class="card"><img src="img/rab3.jpg?v=bda2842e" alt="Кухня — графит" loading="lazy"><span>Кухня — графит</span></div>
+        <div class="card"><img src="img/rab4.jpg?v=0345f5a9" alt="Кухня — тёмный камень" loading="lazy"><span>Кухня — тёмный камень</span></div>
+        <div class="card"><img src="img/rab5.jpg?v=7796116b" alt="Кухня с обеденной зоной" loading="lazy"><span>Кухня с обеденной зоной</span></div>
+        <div class="card"><img src="img/rab6.jpg?v=3f5f3035" alt="Домашний офис — закат" loading="lazy"><span>Домашний офис — закат</span></div>
+        <div class="card"><img src="img/rab7.jpg?v=0a5e77ac" alt="Кухня — день" loading="lazy"><span>Кухня — день</span></div>
+        <div class="card"><img src="img/rab8.jpg?v=daaeb3ad" alt="Офис — тёплый вечер" loading="lazy"><span>Офис — тёплый вечер</span></div>
+  </div>
+</section>
+
+<section id="cfg">
+  <h2>Конструктор: меняйте кухню и сразу видите цену</h2>
+  <p class="sub">Соберите кухню из модулей и покрутите её в 3D. Цена пересчитывается по составу — ориентировочно, точную смету считаем по чертежу.</p>
+  <div class="cfg3d" id="cfg3d">
+    <div class="panel stage3d" id="stage3d">
+      <div id="c3d-canvas"></div>
+      <span class="c3d-badge" id="c3d-badge">…</span>
+      <div class="c3d-views">
+        <button type="button" data-view="front">Спереди</button>
+        <button type="button" data-view="top">Сверху</button>
+        <button type="button" data-view="reset">Сброс вида</button>
+      </div>
+      <div class="c3d-zoom" role="group" aria-label="Масштаб 3D">
+        <button type="button" data-zoom="in" aria-label="Приблизить" title="Приблизить">+</button>
+        <button type="button" data-zoom="out" aria-label="Отдалить" title="Отдалить">−</button>
+      </div>
+      <button type="button" class="c3d-enable" id="c3d-enable" hidden>Включить управление</button>
+      <div class="c3d-hint" id="c3d-hint">Крутите мышью · колесо или +/− — масштаб · правой кнопкой — сдвиг</div>
+      <div class="c3d-fallback" id="c3d-fallback" hidden>
+        <div>
+          <img src="static/konstruktor/fallback.webp" alt="Кухня — пример сборки">
+          <p id="c3d-fallback-text">3D в этом браузере недоступно.</p>
+        </div>
+      </div>
+      <noscript>
+        <div class="c3d-fallback">
+          <div>
+            <img src="static/konstruktor/fallback.webp" alt="Кухня — пример сборки">
+            <p>Для 3D и расчёта включите JavaScript.</p>
+          </div>
+        </div>
+      </noscript>
+      <div class="c3d-msg" id="c3d-msg" hidden></div>
+    </div>
+    <div class="panel">
+      <fieldset class="c3d-sborka"><legend>Сборка: добавьте модули</legend>
+        <div class="c3d-form" role="group" aria-label="Форма кухни">
+          <label><input type="radio" name="c3d-forma" value="прямая" checked> Прямая</label>
+          <label><input type="radio" name="c3d-forma" value="угол"> Г-образная</label>
+        </div>
+        <div class="c3d-add" id="c3d-add"></div>
+        <div class="c3d-list" id="c3d-list"></div>
+        <p class="c3d-tip" id="c3d-list-tip"></p>
+        <div class="c3d-card" id="c3d-card" aria-live="polite"></div>
+      </fieldset>
+      <fieldset><legend>Фасады</legend><div class="opts" id="c3d-fac"></div></fieldset>
+      <fieldset><legend>Тип покраски</legend><div class="opts" id="c3d-paint"></div></fieldset>
+      <fieldset><legend>Столешница</legend><div class="opts" id="c3d-top"></div></fieldset>
+      <fieldset><legend>Фартук</legend>
+        <div class="opts" id="c3d-фартук"></div>
+        <div class="opts" id="c3d-фартук-цвет" hidden></div>
+        <div class="c3d-tip" id="c3d-фартук-note">Высота — реальный зазор до верхних шкафов; цены уточняются.</div>
+      </fieldset>
+      <fieldset><legend>Длина кухни: <span id="c3d-len-val">3,0</span> м</legend>
+        <input class="len" id="c3d-len" type="range" min="2" max="5" step="0.1" value="3"></fieldset>
+      <fieldset><legend>Техника</legend><div class="opts" id="c3d-opt"></div></fieldset>
+      <div class="total c3d-total">
+        <table id="c3d-tbl"></table>
+        <b id="c3d-sum">…</b>
+        <small>Цены ориентировочные — точную смету считаем по чертежу</small>
+        <div class="уточ" id="c3d-note"></div>
+        <div class="cta-line"><a class="btn" id="c3d-cta" href="https://t.me/MebelSmetaBot">Получить точную смету</a></div>
+      </div>
+      <p class="c3d-status" id="c3d-status"></p>
+      <noscript><p class="sub" style="margin:12px 0 0">Для сборки и расчёта включите JavaScript.</p></noscript>
+    </div>
+  </div>
+  <p class="c3d-ver" id="c3d-ver" data-версия="3d-2026.11.02-2">Движок 3D: k3d-embed.js 3d-2026.11.02-2</p>
+</section>
+
+<section id="how">
+  <h2>Как это работает</h2><p class="sub">Всё общение идёт в Telegram.</p>
+  <div class="flow">
+    <div><h3>Пришлите чертёж</h3><p>Файл, скриншот из PRO100 или фото эскиза с размерами.</p></div>
+    <div><h3>Получите смету</h3><p>Материалы, фурнитура и работа по позициям. Можно сравнить варианты фасадов.</p></div>
+    <div><h3>Увидите кухню в комнате</h3><p>Фото с вашей мебелью, светом и материалами. Правки вносим сразу.</p></div>
+  </div>
+</section>
+
+<section id="plans">
+  <h2>Цены</h2><p class="sub">Без подписок и обязательств.</p>
+  <div class="plans">
+    <div class="panel"><h3>Проба</h3><div class="p">0 ₽</div><ul><li>1 ракурс</li><li>Любая мебель из каталога</li></ul><a class="btn ghost" href="https://t.me/MebelSmetaBot">Попробовать</a></div>
+    <div class="panel hl"><h3>Проект</h3><div class="p">по договорённости</div><ul><li>Смета по чертежу</li><li>До 6 ракурсов</li><li>Правки включены</li></ul><a class="btn" href="https://t.me/MebelSmetaBot">Обсудить</a></div>
+    <div class="panel"><h3>Постоянным клиентам</h3><div class="p">со скидкой</div><ul><li>Для мастерских и студий</li><li>Пакеты по объёму</li></ul><a class="btn ghost" href="https://t.me/MebelSmetaBot">Узнать условия</a></div>
+  </div>
+</section>
+
+<div class="cta" id="cta"><h2>Покажем вашу мебель в жизни</h2>
+  <p class="sub" style="margin:10px auto 22px">Первый рендер бесплатно.</p>
+  <a class="btn" href="https://t.me/MebelSmetaBot">Открыть Telegram-бот</a></div>
+<footer>© 2026 Вопрос Мебель · Кухни · Шкафы · Гардеробные · Рабочие зоны<br>
+Фото и проекты — с сайта визуалмебельсмета.рф</footer>
+</div>
+
+<script>
+/* ── hero-слайдер «Проект/Фото» (не трогать) ── */
+(function(){
+  var rng=document.getElementById('rng');
+  if(rng){rng.oninput=function(e){var v=e.target.value;
+    document.getElementById('top').style.clipPath='inset(0 '+(100-v)+'% 0 0)';
+    document.getElementById('under').style.clipPath='inset(0 0 0 '+v+'%)';
+    var tg=document.querySelectorAll('.ba .tag');
+    if(tg.length===2){tg[0].style.opacity=Math.min(1,v/12);tg[1].style.opacity=Math.min(1,(100-v)/12);}
+    document.getElementById('knob').style.left=v+'%';};}
+})();
+
+/* конструктор: 3D-блок вынесен в static/konstruktor3d/k3d-embed.js */
+</script>
+<script type="importmap">
+{"imports":{
+  "three":"/static/konstruktor3d/vendor/three.r160.module.js",
+  "orbit-controls":"/static/konstruktor3d/vendor/OrbitControls.r160.js"
+}}
+</script>
+<script type="module" src="/static/konstruktor3d/k3d-embed.js?v=c7abd2ab"></script>
+</body>
+</html>
